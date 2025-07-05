@@ -85,7 +85,7 @@ get_header(); ?>
 							$feature_text = get_theme_mod( "product_feature_{$i}", ($i <= count($default_features) ? $default_features[$i-1] : '') );
 							if ( !empty($feature_text) ) :
 						?>
-							<li><?php echo esc_html( $feature_text ); ?></li>
+							<li class="staggered-fade-item"><?php echo esc_html( $feature_text ); ?></li>
 						<?php
 							endif;
 						endfor;

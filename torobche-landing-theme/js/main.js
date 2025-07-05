@@ -21,8 +21,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!isNaN(calculatedPrice) && priceDisplay && priceLabel) {
                 const formattedPrice = calculatedPrice.toLocaleString('fa-IR');
-                priceDisplay.textContent = formattedPrice;
-                // priceLabel.style.display = 'block'; // Replaced by class toggle
+
+                // Start fade out the price number
+                priceDisplay.style.opacity = '0';
+
+                setTimeout(function() {
+                    // Update the text content after fade out
+                    priceDisplay.textContent = formattedPrice;
+                    // Start fade in the new price number
+                    priceDisplay.style.opacity = '1';
+                }, 100); // Half of the CSS transition duration (0.2s / 2 = 100ms)
+
+                // Ensure the whole price label <p> is visible
                 priceLabel.classList.add('price-visible');
             }
             if (selectedAgeField) {
@@ -99,6 +109,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
         animatedElements.forEach(el => scrollObserver.observe(el));
+    }
+
+    // Intersection Observer for Staggered List Items (Product Features)
+    const productFeaturesList = document.querySelector('.product-features ul');
+    if (productFeaturesList) {
+        const featureItems = productFeaturesList.querySelectorAll('.staggered-fade-item');
+
+        if (featureItems.length > 0) {
+            const featureObserverOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2 // A bit more of the list should be visible
+            };
+
+            const featureObserverCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        featureItems.forEach((item, index) => {
+                            item.style.transitionDelay = (index * 150) + 'ms'; // Stagger delay
+                            item.classList.add('is-visible');
+                        });
+                        observer.unobserve(productFeaturesList); // Stop observing the list once items are triggered
+                    }
+                });
+            };
+
+            const featureListObserver = new IntersectionObserver(featureObserverCallback, featureObserverOptions);
+            featureListObserver.observe(productFeaturesList);
+        }
     }
 
 });
