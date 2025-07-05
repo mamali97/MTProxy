@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!isNaN(calculatedPrice) && priceDisplay && priceLabel) {
                 const formattedPrice = calculatedPrice.toLocaleString('fa-IR');
                 priceDisplay.textContent = formattedPrice;
-                priceLabel.style.display = 'block';
+                // priceLabel.style.display = 'block'; // Replaced by class toggle
+                priceLabel.classList.add('price-visible');
             }
             if (selectedAgeField) {
                 selectedAgeField.value = selectedAge;
@@ -31,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 finalPriceField.value = calculatedPrice;
             }
         } else if (priceLabel) {
-            priceLabel.style.display = 'none';
+            // priceLabel.style.display = 'none'; // Replaced by class toggle
+            priceLabel.classList.remove('price-visible');
             if(selectedAgeField) selectedAgeField.value = "";
             if(finalPriceField) finalPriceField.value = "";
         }
@@ -75,4 +77,28 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Intersection Observer for Scroll Animations
+    const animatedElements = document.querySelectorAll('.fade-in-on-scroll');
+
+    if (animatedElements.length > 0) {
+        const observerOptions = {
+            root: null, // relative to document viewport
+            rootMargin: '0px',
+            threshold: 0.1 // A small percentage of the target is visible
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        };
+
+        const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+        animatedElements.forEach(el => scrollObserver.observe(el));
+    }
+
 });

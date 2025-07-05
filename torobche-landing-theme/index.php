@@ -16,33 +16,16 @@ get_header(); ?>
 
 	<main id="primary" class="site-main">
 
-		<?php
-		// We will build the content of the landing page here directly
-		// or by including template parts.
-
-		// For now, a simple placeholder:
-		if ( have_posts() ) :
-
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
-				the_title('<h1>', '</h1>');
-				the_content();
-			endwhile;
-
-		else :
-
-			echo '<p>No content found.</p>';
-
-		endif;
-		?>
-
 		<!-- Hero Section -->
 		<?php
 			$hero_bg_image_url = get_theme_mod( 'hero_background_image', '' );
-			$hero_section_style = !empty($hero_bg_image_url) ? 'style="background-image: url(' . esc_url($hero_bg_image_url) . '); background-size: cover; background-position: center;"' : '';
+			$hero_section_class = 'hero-section fade-in-on-scroll'; // Added animation class
+			if (!empty($hero_bg_image_url)) {
+				// $hero_section_class .= ' has-bg-image'; // Optional: for overlay, if you decide to use it
+			}
+			$hero_section_style = !empty($hero_bg_image_url) ? 'style="background-image: url(' . esc_url($hero_bg_image_url) . ');"' : '';
 		?>
-		<section id="hero" class="hero-section" <?php echo $hero_section_style; ?>>
+		<section id="hero" class="<?php echo esc_attr($hero_section_class); ?>" <?php echo $hero_section_style; ?>>
 			<div class="container hero-content">
 				<div class="hero-text">
 					<h1 class="hero-title"><?php echo esc_html( get_theme_mod( 'hero_title', __( 'لباس جادویی', 'torobche-landing' ) ) ); ?></h1>
@@ -63,7 +46,7 @@ get_header(); ?>
 		</section>
 
 		<!-- Product Details & Price Section -->
-		<section id="product-details" class="product-details-section">
+		<section id="product-details" class="product-details-section fade-in-on-scroll">
 			<div class="container">
 				<h2 class="section-title"><?php echo esc_html(get_theme_mod('product_details_title', __('سایز و قیمت را انتخاب کنید', 'torobche-landing'))); ?></h2>
 				<div class="product-options">
@@ -83,7 +66,8 @@ get_header(); ?>
 						</select>
 					</div>
 					<div class="price-display">
-						<p id="price-label" style="display: none;"><?php _e('قیمت:', 'torobche-landing'); ?> <span id="product-price"></span> <?php _e('تومان', 'torobche-landing'); ?></p>
+						<?php // Removed style="display: none;" as it's now controlled by CSS class and opacity/visibility ?>
+						<p id="price-label"><?php _e('قیمت:', 'torobche-landing'); ?> <span id="product-price"></span> <?php _e('تومان', 'torobche-landing'); ?></p>
 					</div>
 				</div>
 				<div class="product-features">
@@ -112,7 +96,7 @@ get_header(); ?>
 		</section>
 
 		<!-- Order Form Section -->
-		<section id="order-form" class="order-form-section">
+		<section id="order-form" class="order-form-section fade-in-on-scroll">
 			<div class="container">
 				<h2 class="section-title"><?php echo esc_html(get_theme_mod('order_form_title', __('فرم سفارش لباس جادویی', 'torobche-landing'))); ?></h2>
 				<?php
@@ -161,7 +145,7 @@ get_header(); ?>
 		</section>
 
 		<!-- Testimonials Section -->
-		<section id="testimonials" class="testimonials-section">
+		<section id="testimonials" class="testimonials-section fade-in-on-scroll">
 			<div class="container">
 				<h2 class="section-title"><?php echo esc_html(get_theme_mod('testimonials_title', __('نظر مشتریان خوشحال ما', 'torobche-landing'))); ?></h2>
 				<div class="testimonials-grid">
