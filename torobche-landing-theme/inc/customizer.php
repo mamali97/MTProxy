@@ -148,6 +148,19 @@ function torobche_landing_customize_register( $wp_customize ) {
 		'type'     => 'url',
 	) );
 
+	// Hero Product Image (for the placeholder area)
+	$wp_customize->add_setting( 'hero_product_image', array(
+		'default'           => '',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_product_image_control', array(
+		'label'       => __( 'تصویر محصول در بخش Hero', 'torobche-landing' ),
+		'section'     => 'torobche_hero_section', // Add to existing Hero section
+		'settings'    => 'hero_product_image',
+		'description' => __( 'این تصویر در کنار متن Hero نمایش داده می‌شود (در جایگاه placeholder فعلی). اگر تصویر پس‌زمینه کلی برای Hero نیز تنظیم شده باشد، این تصویر روی آن قرار می‌گیرد.', 'torobche-landing' ),
+	) ) );
+
 	// ============== Product Details Section Settings ==============
 	$wp_customize->add_section( 'torobche_product_details_section', array(
 		'title'      => __( 'تنظیمات جزئیات محصول', 'torobche-landing' ),

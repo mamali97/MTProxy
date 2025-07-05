@@ -260,9 +260,128 @@ ul, ol {
 }
 */
 
-.hero-image-placeholder {
+.hero-image-area { /* Container for the uploaded image or placeholder */
     width: 100%;
     max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    overflow: hidden;
+    background-color: #fff; /* Fallback bg for the area */
+}
+
+.hero-product-showcase-image { /* Styles for the uploaded product image */
+    width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    display: block;
+}
+
+.hero-image-placeholder { /* Styles for the placeholder box when no image is uploaded */
+    width: 100%;
+    min-height: 250px;
+    height: 100%;
+    background-color: #fce4ec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-radius and box-shadow are now on .hero-image-area, so remove from here if they were */
+    color: #888;
+    font-size: 1.2em;
+    padding: 20px; /* Add some padding to the text inside placeholder */
+    text-align: center; /* Center the text */
+}
+
+
+/* Responsive adjustments for Hero section image area */
+@media (min-width: 768px) {
+    .hero-image-area { /* This was previously .hero-image-placeholder for flex sizing */
+        flex: 0 0 400px; /* Fixed width for image container on larger screens */
+        height: auto; /* Allow height to adjust based on content or specific image */
+        align-self: center; /* Vertically center if content is shorter */
+    }
+     .hero-product-showcase-image {
+        max-height: 400px; /* Allow more height on desktop */
+    }
+    .hero-image-placeholder {
+        min-height: 300px; /* Ensure placeholder has decent height on desktop */
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-image-area {
+        max-width: 320px; /* Slightly smaller max-width on mobile for the image area */
+        margin-top: 20px; /* Add some space above if stacked */
+    }
+    .hero-product-showcase-image {
+        max-height: 300px;
+    }
+     .hero-image-placeholder {
+        min-height: 200px; /* Placeholder height on mobile */
+    }
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem; /* Using rem for padding */
+    border-radius: 6px; /* Standardized border-radius */
+    text-decoration: none;
+    font-weight: 500; /* Medium weight */
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    font-size: 1.05rem; /* Adjusted font size */
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    line-height: 1.5; /* Consistent line height */
+}
+
+.btn-primary { /* This is the Hero CTA button */
+    background-color: #ff69b4; /* Pink */
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #e055a0; /* Darker Pink */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(224, 85, 160, 0.3); /* Enhanced shadow on hover */
+}
+.btn-primary:focus { /* Ensure focus style is distinct if outline is removed elsewhere */
+    outline: none; /* Remove default if we rely on box-shadow or other indicators */
+    box-shadow: 0 0 0 0.2rem rgba(255, 105, 180, 0.4), 0 4px 8px rgba(224, 85, 160, 0.3); /* Pink glow + hover shadow */
+}
+
+
+/* Responsive adjustments for Hero section */
+@media (min-width: 768px) {
+    .hero-content {
+        flex-direction: row;
+        text-align: right; /* For RTL, text on right, image on left */
+        gap: 50px;
+    }
+    .hero-text {
+        flex: 1;
+    }
+    /* .hero-image-placeholder replaced by .hero-image-area for flex sizing */
+}
+
+@media (max-width: 767px) {
+    .hero-title {
+        font-size: 2.5em;
+    }
+    .hero-tagline {
+        font-size: 1.2em;
+    }
+    .hero-description {
+        font-size: 1em;
+    }
+    .hero-section {
+        padding: 40px 0;
+    }
+}
     height: 300px;
     background-color: #fce4ec; /* Light pink background for image placeholder - for girls */
     display: flex;

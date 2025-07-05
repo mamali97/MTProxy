@@ -37,11 +37,18 @@ get_header(); ?>
 						<?php echo esc_html( get_theme_mod( 'hero_cta_text', __( 'سفارش لباس جادویی خودم', 'torobche-landing' ) ) ); ?>
 					</a>
 				</div>
-				<?php if ( empty($hero_bg_image_url) ) : // Show placeholder only if no background image is set ?>
-				<div class="hero-image-placeholder">
-					<p><?php _e( 'تصویر محصول یا پس‌زمینه Hero در اینجا', 'torobche-landing' ); ?></p>
+				<div class="hero-image-area">
+					<?php
+					$hero_product_image_url = get_theme_mod('hero_product_image', '');
+					if ( !empty($hero_product_image_url) ) :
+					?>
+						<img src="<?php echo esc_url($hero_product_image_url); ?>" alt="<?php esc_attr_e('تصویر محصول تربچه', 'torobche-landing'); ?>" class="hero-product-showcase-image">
+					<?php else : ?>
+						<div class="hero-image-placeholder">
+							<p><?php _e( 'تصویر محصول در اینجا آپلود شود', 'torobche-landing' ); ?></p>
+						</div>
+					<?php endif; ?>
 				</div>
-				<?php endif; ?>
 			</div>
 		</section>
 
