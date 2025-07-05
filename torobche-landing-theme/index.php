@@ -19,13 +19,13 @@ get_header(); ?>
 		<!-- Hero Section -->
 		<?php
 			$hero_bg_image_url = get_theme_mod( 'hero_background_image', '' );
-			$hero_section_class = 'hero-section fade-in-on-scroll'; // Added animation class
+			$hero_section_classes = 'hero-section fade-in-on-scroll'; // Base classes
 			if (!empty($hero_bg_image_url)) {
-				// $hero_section_class .= ' has-bg-image'; // Optional: for overlay, if you decide to use it
+				$hero_section_classes .= ' has-bg-image'; // Add class if background image exists
 			}
 			$hero_section_style = !empty($hero_bg_image_url) ? 'style="background-image: url(' . esc_url($hero_bg_image_url) . ');"' : '';
 		?>
-		<section id="hero" class="<?php echo esc_attr($hero_section_class); ?>" <?php echo $hero_section_style; ?>>
+		<section id="hero" class="<?php echo esc_attr($hero_section_classes); ?>" <?php echo $hero_section_style; ?>>
 			<div class="container hero-content">
 				<div class="hero-text">
 					<h1 class="hero-title"><?php echo esc_html( get_theme_mod( 'hero_title', __( 'لباس جادویی', 'torobche-landing' ) ) ); ?></h1>
