@@ -1,0 +1,642 @@
+/*
+Theme Name: Torobche Landing Page
+Theme URI: https://example.com/torobche-landing-theme/
+Author: Jules for User
+Author URI: https://example.com/
+Description: A landing page theme for Torobche, showcasing the 'Magical Clothes' product.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: landing-page, single-product, kids, e-commerce
+Text Domain: torobche-landing
+*/
+
+/* Basic Reset & Global Styles */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* For smooth scrolling on anchor links */
+    direction: rtl; /* Right-to-left for Persian language */
+}
+
+body {
+    font-family: 'Vazirmatn', 'Tahoma', 'Arial', sans-serif; /* Vazirmatn for Persian, with fallbacks */
+    line-height: 1.7;
+    color: #444; /* Slightly softer than pure black for body text */
+    background-color: #fdfcfa; /* A very light, warm off-white */
+    font-size: 16px; /* Base font size */
+    -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit browsers */
+    -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+}
+
+/* Add Vazirmatn font from Google Fonts (or local if preferred) */
+/* This should ideally be enqueued via functions.php for WordPress best practices,
+   but for simplicity in this CSS, an @import is shown.
+   Consider moving to functions.php: wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap', false);
+*/
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap');
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700; /* Bolder headings */
+    line-height: 1.3;
+    color: #2c3e50; /* Dark blue-gray for headings */
+    margin-bottom: 0.75em;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+a {
+    color: #1e90ff; /* Consistent link blue */
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover, a:focus {
+    color: #ff69b4; /* Pink hover for links */
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+ul, ol {
+    padding-right: 20px; /* Standard padding for lists in RTL */
+}
+
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Header Styles */
+.site-header {
+    background-color: #fff; /* White background for header */
+    padding: 15px 0;
+    border-bottom: 1px solid #eee; /* Light border */
+    text-align: center; /* Center align header content */
+}
+
+.site-branding {
+    /* Container for logo/title, already has margin auto from .container */
+}
+
+.site-title-container {
+    display: inline-block; /* Allows centering if text-align is on parent */
+}
+
+.site-logo-link {
+    text-decoration: none;
+}
+
+.site-title-text {
+    font-size: 2.5em; /* Larger font for "Torobche" */
+    font-weight: bold;
+    color: #ff69b4; /* Pink color for brand */
+    /* A simple text shadow for a bit of depth */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    transition: color 0.3s ease;
+}
+
+.site-logo-link:hover .site-title-text,
+.site-logo-link:focus .site-title-text {
+    color: #1e90ff; /* Blue color on hover/focus */
+}
+
+/* Basic responsive adjustment for header text */
+@media (max-width: 768px) {
+    .site-title-text {
+        font-size: 2em;
+    }
+    .site-header {
+        padding: 10px 0;
+    }
+}
+
+/* Hero Section Styles */
+.hero-section {
+    background-color: #e6f7ff; /* Light blue background - for boys */
+    padding: 60px 0;
+    text-align: center;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.hero-title {
+    font-size: 3em;
+    color: #ff69b4; /* Pink for title */
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.hero-tagline {
+    font-size: 1.5em;
+    color: #1e90ff; /* Blue for tagline */
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.hero-description {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.7;
+}
+
+.hero-image-placeholder {
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    background-color: #fce4ec; /* Light pink background for image placeholder - for girls */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    color: #888;
+    font-size: 1.2em;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #ff69b4; /* Pink */
+    color: white;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #e055a0; /* Darker Pink */
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments for Hero section */
+@media (min-width: 768px) {
+    .hero-content {
+        flex-direction: row;
+        text-align: right; /* For RTL, text on right, image on left */
+        gap: 50px;
+    }
+    .hero-text {
+        flex: 1;
+    }
+    .hero-image-placeholder {
+        flex: 0 0 400px; /* Fixed width for image container on larger screens */
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-title {
+        font-size: 2.5em;
+    }
+    .hero-tagline {
+        font-size: 1.2em;
+    }
+    .hero-description {
+        font-size: 1em;
+    }
+    .hero-section {
+        padding: 40px 0;
+    }
+}
+
+/* General Section Styling */
+.section-title {
+    text-align: center;
+    font-size: 2.2em;
+    color: #333;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 4px;
+    background-color: #ff69b4; /* Pink accent */
+    border-radius: 2px;
+}
+
+
+/* Product Details Section Styles */
+.product-details-section {
+    padding: 50px 0;
+    background-color: #fff; /* White background for this section */
+}
+
+.product-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light greyish background for options box */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.size-selector label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+#age-select {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    min-width: 200px;
+    background-color: white;
+}
+
+#age-select:focus {
+    outline: none;
+    border-color: #1e90ff; /* Blue focus */
+    box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.2);
+}
+
+.price-display p {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #1e90ff; /* Blue for price */
+}
+
+#product-price {
+    /* font-family: 'Tahoma', sans-serif; /* Example for number styling */
+}
+
+.product-features {
+    margin-top: 30px;
+    text-align: right; /* RTL text alignment */
+}
+
+.product-features h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #fce4ec; /* Light pink underline */
+    display: inline-block; /* To make border only as wide as text */
+}
+
+.product-features ul {
+    list-style: none;
+    padding-right: 0; /* RTL padding */
+}
+
+.product-features ul li {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    padding-right: 25px; /* RTL padding */
+    position: relative;
+}
+
+.product-features ul li::before {
+    content: '✔'; /* Or use an icon font/SVG */
+    color: #ff69b4; /* Pink checkmark */
+    position: absolute;
+    right: 0; /* RTL positioning */
+    top: 0;
+}
+
+@media (min-width: 768px) {
+    .product-options {
+        flex-direction: row;
+        justify-content: center;
+        gap: 40px;
+    }
+    .size-selector label {
+        text-align: right;
+    }
+}
+
+/* Order Form Section Styles */
+.order-form-section {
+    padding: 50px 0;
+    background-color: #e6f7ff; /* Light blue, same as hero, or a contrasting one */
+}
+
+.torobche-order-form {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    direction: rtl; /* Right-to-left for Persian forms */
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Allows items in a row to take equal space if needed */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+    font-size: 1em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: inherit; /* Use theme's font */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #ff69b4; /* Pink focus */
+    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.required {
+    color: #ff0000; /* Red asterisk for required fields */
+    margin-right: 3px;
+}
+
+.form-submit-group {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-submit-order {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background-color: #1e90ff; /* Blue for submit button */
+}
+.btn-submit-order:hover, .btn-submit-order:focus {
+    background-color: #1878de; /* Darker blue */
+}
+
+.form-note {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+
+@media (min-width: 768px) {
+    .form-row {
+        flex-direction: row; /* Side-by-side fields on larger screens */
+    }
+}
+
+/* Testimonials Section Styles */
+.testimonials-section {
+    padding: 50px 0;
+    background-color: #fdf0f5; /* Very light pink for testimonials background */
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.testimonial-item {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-left: 5px solid #1e90ff; /* Blue accent border */
+    direction: rtl; /* RTL for content */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.testimonial-text {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.testimonial-text::before {
+    content: '“'; /* Opening quote */
+    font-size: 1.5em;
+    color: #ff69b4; /* Pink quote */
+    margin-left: 5px; /* RTL margin */
+    font-weight: bold;
+}
+.testimonial-text::after {
+    content: '”'; /* Closing quote */
+    font-size: 1.5em;
+    color: #ff69b4;
+    margin-right: 2px; /* RTL margin */
+    font-weight: bold;
+}
+
+
+.testimonial-author {
+    font-size: 0.95em;
+    font-weight: bold;
+    color: #333;
+    text-align: left; /* Author name aligned to the start (left in RTL) */
+}
+
+.testimonials-note {
+    text-align: center;
+    font-size: 1em;
+    color: #666;
+}
+
+/* Footer Styles */
+.site-footer {
+    background-color: #333; /* Dark background for footer */
+    color: #f4f4f4; /* Light text color */
+    padding: 40px 0 20px;
+    direction: rtl;
+    font-size: 0.95em;
+}
+
+.footer-container {
+    /* Using .container class for width and centering */
+}
+
+.footer-widgets-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #555; /* Separator line */
+}
+
+.footer-widget {
+    flex: 1;
+    min-width: 250px; /* Ensure widgets don't get too squeezed */
+}
+
+.footer-widget .widget-title {
+    font-size: 1.3em;
+    color: #ff69b4; /* Pink for widget titles */
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #555;
+    display: inline-block;
+}
+
+.footer-widget p, .footer-widget ul {
+    margin-bottom: 10px;
+}
+
+.footer-widget a {
+    color: #1e90ff; /* Blue for links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-widget a:hover, .footer-widget a:focus {
+    color: #64b5f6; /* Lighter blue on hover */
+    text-decoration: underline;
+}
+
+.footer-icon {
+    margin-left: 8px; /* For RTL, icon on the right */
+    color: #ff69b4; /* Pink icon color */
+}
+
+.social-media-links {
+    list-style: none;
+    padding: 0;
+}
+
+.social-media-links li {
+    margin-bottom: 8px;
+}
+
+.social-media-links .social-link {
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+.social-media-links .social-icon {
+    /* Placeholder for actual SVG/Font icon styling */
+    display: inline-block;
+    width: 20px; /* Adjust as per your icon */
+    height: 20px; /* Adjust as per your icon */
+    /* background-color: #555; /* temp placeholder */
+    /* border-radius: 3px; */
+}
+/* Example: Add actual icons later via SVG or FontAwesome */
+.social-link.instagram .social-icon::before { content: '📷'; font-size: 1.2em; } /* Placeholder */
+.social-link.telegram .social-icon::before { content: '➢'; font-size: 1.2em; } /* Placeholder */
+
+
+.footer-nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-nav-links li {
+    margin-bottom: 8px;
+}
+
+.site-info-bar {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.9em;
+}
+
+.site-info-bar p {
+    margin: 5px 0;
+    color: #ccc;
+}
+
+.site-info-bar .theme-credit {
+    font-size: 0.8em;
+    color: #888;
+}
+
+@media (max-width: 767px) {
+    .footer-widgets-area {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-widget {
+        width: 100%;
+        max-width: 350px; /* Limit width on mobile for better readability */
+    }
+    .footer-widget .widget-title {
+        display: block; /* Full width title on mobile */
+        text-align: center;
+    }
+}
+
+
+/* Add more foundational styles as needed */
