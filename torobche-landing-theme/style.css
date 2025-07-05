@@ -167,12 +167,29 @@ ul, ol {
 
 /* Hero Section Styles */
 .hero-section {
-    background-color: #e6f7ff; /* Light blue background - for boys */
+    background-color: #e6f7ff; /* Default Light blue background */
     padding: 60px 0;
     text-align: center;
+    background-size: cover; /* Ensure background image covers the section */
+    background-position: center center; /* Center the background image */
+    position: relative; /* For potential overlay */
+}
+
+/* Optional: Add an overlay if a background image is used, to ensure text readability */
+.hero-section.has-bg-image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Adjust opacity as needed */
+    z-index: 1;
 }
 
 .hero-content {
+    position: relative; /* To sit on top of the overlay */
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -576,6 +593,7 @@ ul, ol {
 .footer-widget {
     flex: 1;
     min-width: 250px; /* Ensure widgets don't get too squeezed */
+    text-align: right; /* Ensure content within widget defaults to RTL text alignment */
 }
 
 .footer-widget .widget-title {

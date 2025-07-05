@@ -46,6 +46,22 @@ function torobche_landing_setup() {
 		*/
 	add_theme_support( 'post-thumbnails' );
 
+	/**
+	 * Add support for core custom logo.
+	 *
+	 * @link https://codex.wordpress.org/Theme_Logo
+	 */
+	add_theme_support(
+		'custom-logo',
+		array(
+			'height'      => 100, // Example height
+			'width'       => 300, // Example width
+			'flex-width'  => true,
+			'flex-height' => true,
+			// 'header-text' => array( 'site-title', 'site-description' ), // Names of classes to hide.
+		)
+	);
+
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
@@ -135,6 +151,11 @@ function torobche_landing_scripts() {
 add_action( 'wp_enqueue_scripts', 'torobche_landing_scripts' );
 
 /**
+ * Implement the Custom Header feature.
+ */
+// require get_template_directory() . '/inc/custom-header.php';
+
+/**
  * Custom template tags for this theme.
  */
 // require get_template_directory() . '/inc/template-tags.php';
@@ -147,7 +168,7 @@ add_action( 'wp_enqueue_scripts', 'torobche_landing_scripts' );
 /**
  * Customizer additions.
  */
-// require get_template_directory() . '/inc/customizer.php';
+require get_template_directory() . '/inc/customizer.php';
 
 /**
  * Load Jetpack compatibility file.

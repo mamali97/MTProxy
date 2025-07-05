@@ -34,26 +34,28 @@
 					For example: <img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" alt="لوگوی تربچه" id="site-logo">
 					Or, if you upload it via WordPress Customizer (more advanced):
 					<?php
-					$custom_logo_id = get_theme_mod( 'custom_logo' );
-					$logo_image_url = wp_get_attachment_image_url( $custom_logo_id , 'full' );
-					if ( $logo_image_url ) {
-						echo '<img src="' . esc_url( $logo_image_url ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" id="site-logo">';
+					if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
+						the_custom_logo();
 					} else {
-						// Fallback if no logo is set - you can put a placeholder or leave it empty
-						echo '<img src="#" alt="لوگوی تربچه" id="site-logo" style="border:1px dashed #ccc; padding:10px; background-color:#f0f0f0; color:#777; text-align:center; min-height:50px; display:inline-block;">';
-						// echo '<span class="site-title-text-fallback">' . esc_html( get_bloginfo( 'name' ) ) . '</span>';
+						// Fallback if no logo is set - display a placeholder or site title as text.
+						// You can customize this placeholder.
+						echo '<a href="' . esc_url( home_url( '/' ) ) . '" rel="home">';
+						echo '<img src="' . get_template_directory_uri() . '/images/logo-placeholder.png" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" id="site-logo-placeholder" style="height: 60px; width: auto; border:1px dashed #ccc; padding:5px; background-color:#f0f0f0;">';
+						echo '</a>';
 					}
 					?>
-					-->
-					<img src="#" alt="لوگوی تربچه" id="site-logo" style="height: 60px; width: auto; border:1px dashed #ccc; padding:5px; background-color:#f0f0f0;">
-					<span class="screen-reader-text"><?php bloginfo('name'); ?></span>
-				</a>
+					<?php // The <a> tag wrapping the_custom_logo() was indeed redundant as the_custom_logo() generates its own <a> tag. Removed the outer <a>. ?>
 			</div>
 			<div class="site-title-area">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="site-title-link">
-					<span class="site-title-text">تربچه</span>
-				</a>
-				<p class="site-description-text">فروش لوازم کودکان، اسباب بازی و سرگرمی</p> <!-- Optional: Add a tagline here -->
+				<?php
+				// Check if the "Display Site Title and Tagline" checkbox is checked in the Customizer
+				if ( display_header_text() === true ) :
+				?>
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="site-title-link">
+						<span class="site-title-text"><?php bloginfo( 'name' ); ?></span>
+					</a>
+					<p class="site-description-text"><?php bloginfo( 'description' ); ?></p>
+				<?php endif; ?>
 			</div>
 			<?php
 			// If you want to add a navigation menu later, you can use wp_nav_menu() here.

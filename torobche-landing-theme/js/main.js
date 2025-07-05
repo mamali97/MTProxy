@@ -6,40 +6,59 @@ document.addEventListener('DOMContentLoaded', function() {
     const finalPriceField = document.getElementById('final_price_field');
 
     function updatePriceAndHiddenFields() {
-        if (ageSelect && ageSelect.value !== "") { // Check if a valid age is selected
-            const selectedOption = ageSelect.options[ageSelect.selectedIndex];
-            const price = selectedOption.getAttribute('data-price');
-            const age = selectedOption.value;
+        if (ageSelect && ageSelect.value !== "" && ageSelect.value !== null) {
+            const selectedAge = parseInt(ageSelect.value);
+            const basePrice = parseInt(ageSelect.getAttribute('data-base-price'));
+            const priceIncrease = parseInt(ageSelect.getAttribute('data-price-increase'));
+            const baseAge = 2; // The age for which the base price is set (e.g., 2 years)
 
-            if (price && priceDisplay && priceLabel) {
-                const formattedPrice = parseInt(price).toLocaleString('fa-IR');
+            let calculatedPrice = basePrice;
+            if (selectedAge > baseAge) {
+                calculatedPrice += (selectedAge - baseAge) * priceIncrease;
+            }
+
+            // console.log('Selected Age:', selectedAge, 'Base Price:', basePrice, 'Increase:', priceIncrease, 'Calculated Price:', calculatedPrice);
+
+            if (!isNaN(calculatedPrice) && priceDisplay && priceLabel) {
+                const formattedPrice = calculatedPrice.toLocaleString('fa-IR');
                 priceDisplay.textContent = formattedPrice;
-                priceLabel.style.display = 'block'; // Show the price label
+                priceLabel.style.display = 'block';
             }
             if (selectedAgeField) {
-                selectedAgeField.value = age;
+                selectedAgeField.value = selectedAge;
             }
             if (finalPriceField) {
-                finalPriceField.value = price;
+                finalPriceField.value = calculatedPrice;
             }
         } else if (priceLabel) {
-            // If no valid age is selected (e.g. placeholder is selected), hide the price
             priceLabel.style.display = 'none';
+            if(selectedAgeField) selectedAgeField.value = "";
+            if(finalPriceField) finalPriceField.value = "";
         }
     }
 
     if (ageSelect) {
-        // Add a default placeholder option that is not a valid age
-        const placeholderOption = document.createElement('option');
-        placeholderOption.value = "";
-        placeholderOption.textContent = "لطفا سن را انتخاب کنید...";
-        placeholderOption.selected = true;
-        placeholderOption.disabled = true; // Optional: make it not selectable again after choosing another
-        ageSelect.prepend(placeholderOption);
+        // Check if placeholder already exists from PHP (it shouldn't based on current PHP)
+        // Or if the first option is not the placeholder we want to add
+        let placeholderExists = false;
+        if (ageSelect.options.length > 0 && ageSelect.options[0].value === "") {
+            placeholderExists = true;
+        }
+
+        if (!placeholderExists) {
+            const placeholderOption = document.createElement('option');
+            placeholderOption.value = "";
+            placeholderOption.textContent = "لطفا سن را انتخاب کنید...";
+            placeholderOption.disabled = true;
+            placeholderOption.selected = true;
+            ageSelect.insertBefore(placeholderOption, ageSelect.firstChild);
+        } else {
+            // If for some reason a blank value option is there, make sure it's selected.
+            ageSelect.value = "";
+        }
 
         ageSelect.addEventListener('change', updatePriceAndHiddenFields);
-        // Initialize on load - price will be hidden initially due to placeholder
-        updatePriceAndHiddenFields();
+        updatePriceAndHiddenFields(); // Initialize on load
     }
 
     // Smooth scroll for anchor links (e.g., Hero CTA to Order Form)
