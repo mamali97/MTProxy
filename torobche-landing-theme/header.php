@@ -28,23 +28,18 @@
 	<header id="masthead" class="site-header">
 		<div class="container header-inner-container">
 			<div class="logo-area">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<!--
-					IMPORTANT USER ACTION: Replace # with the actual URL to your logo image.
-					For example: <img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" alt="لوگوی تربچه" id="site-logo">
-					Or, if you upload it via WordPress Customizer (more advanced):
-					<?php
-					if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
-						the_custom_logo();
-					} else {
-						// Fallback if no logo is set - display a placeholder or site title as text.
-						// You can customize this placeholder.
-						echo '<a href="' . esc_url( home_url( '/' ) ) . '" rel="home">';
-						echo '<img src="' . get_template_directory_uri() . '/images/logo-placeholder.png" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" id="site-logo-placeholder" style="height: 60px; width: auto; border:1px dashed #ccc; padding:5px; background-color:#f0f0f0;">';
-						echo '</a>';
-					}
-					?>
-					<?php // The <a> tag wrapping the_custom_logo() was indeed redundant as the_custom_logo() generates its own <a> tag. Removed the outer <a>. ?>
+				<?php
+				if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
+					the_custom_logo();
+				} else {
+					// Fallback if no logo is set
+					echo '<a href="' . esc_url( home_url( '/' ) ) . '" rel="home">';
+					// Ensure the placeholder image style is either here or in CSS for consistency.
+					// For simplicity, keeping it inline for now if it's a specific placeholder style.
+					echo '<img src="' . get_template_directory_uri() . '/images/logo-placeholder.png" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" id="site-logo-placeholder" style="height: 60px; width: auto; border:1px dashed #ccc; padding:5px; background-color:#f0f0f0;">';
+					echo '</a>';
+				}
+				?>
 			</div>
 			<div class="site-title-area">
 				<?php
