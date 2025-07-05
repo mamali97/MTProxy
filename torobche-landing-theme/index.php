@@ -72,7 +72,7 @@ get_header(); ?>
 						</select>
 					</div>
 					<div class="price-display">
-						<p>قیمت: <span id="product-price">۸۷۰,۰۰۰</span> تومان</p>
+						<p id="price-label" style="display: none;">قیمت: <span id="product-price"></span> تومان</p>
 					</div>
 				</div>
 				<div class="product-features">

@@ -26,25 +26,34 @@
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'torobche-landing' ); ?></a>
 
 	<header id="masthead" class="site-header">
-		<div class="site-branding container">
-			<?php
-			// We'll add the "Torobche" brand name here in the next step.
-			// For now, it's a placeholder.
-			?>
-			<div class="site-title-container">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="site-logo-link">
-					<span class="site-title-text">تربچه</span>
+		<div class="container header-inner-container">
+			<div class="logo-area">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<!--
+					IMPORTANT USER ACTION: Replace # with the actual URL to your logo image.
+					For example: <img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" alt="لوگوی تربچه" id="site-logo">
+					Or, if you upload it via WordPress Customizer (more advanced):
 					<?php
-					// You can add a logo image here if you have one later:
-					// $custom_logo_id = get_theme_mod( 'custom_logo' );
-					// $logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-					// if ( has_custom_logo() ) {
-					// echo '<img src="' . esc_url( $logo[0] ) . '" alt="' . get_bloginfo( 'name' ) . '">';
-					// } else {
-					// echo '<span class="site-title-text">تربچه</span>';
-					// }
+					$custom_logo_id = get_theme_mod( 'custom_logo' );
+					$logo_image_url = wp_get_attachment_image_url( $custom_logo_id , 'full' );
+					if ( $logo_image_url ) {
+						echo '<img src="' . esc_url( $logo_image_url ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" id="site-logo">';
+					} else {
+						// Fallback if no logo is set - you can put a placeholder or leave it empty
+						echo '<img src="#" alt="لوگوی تربچه" id="site-logo" style="border:1px dashed #ccc; padding:10px; background-color:#f0f0f0; color:#777; text-align:center; min-height:50px; display:inline-block;">';
+						// echo '<span class="site-title-text-fallback">' . esc_html( get_bloginfo( 'name' ) ) . '</span>';
+					}
 					?>
+					-->
+					<img src="#" alt="لوگوی تربچه" id="site-logo" style="height: 60px; width: auto; border:1px dashed #ccc; padding:5px; background-color:#f0f0f0;">
+					<span class="screen-reader-text"><?php bloginfo('name'); ?></span>
 				</a>
+			</div>
+			<div class="site-title-area">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="site-title-link">
+					<span class="site-title-text">تربچه</span>
+				</a>
+				<p class="site-description-text">فروش لوازم کودکان، اسباب بازی و سرگرمی</p> <!-- Optional: Add a tagline here -->
 			</div>
 			<?php
 			// If you want to add a navigation menu later, you can use wp_nav_menu() here.

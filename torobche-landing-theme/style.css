@@ -26,38 +26,41 @@ html {
 }
 
 body {
-    font-family: 'Vazirmatn', 'Tahoma', 'Arial', sans-serif; /* Vazirmatn for Persian, with fallbacks */
-    line-height: 1.7;
-    color: #444; /* Slightly softer than pure black for body text */
-    background-color: #fdfcfa; /* A very light, warm off-white */
-    font-size: 16px; /* Base font size */
-    -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit browsers */
-    -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+    font-family: 'Vazirmatn', 'Tahoma', Arial, sans-serif; /* Vazirmatn for Persian, with fallbacks */
+    line-height: 1.75; /* Increased line height for better readability */
+    color: #333; /* Darker text for better contrast */
+    background-color: #fdfdfd; /* Slightly cleaner off-white */
+    font-size: 17px; /* Slightly larger base font size for readability */
+    font-weight: 400; /* Regular weight for body text */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Add Vazirmatn font from Google Fonts (or local if preferred) */
-/* This should ideally be enqueued via functions.php for WordPress best practices,
-   but for simplicity in this CSS, an @import is shown.
-   Consider moving to functions.php: wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap', false);
-*/
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap');
-
+/* Vazirmatn font is enqueued via functions.php, so @import is not needed here */
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 700; /* Bolder headings */
-    line-height: 1.3;
+    font-family: 'Vazirmatn', 'Tahoma', Arial, sans-serif; /* Ensure headings also use Vazirmatn */
+    font-weight: 700; /* Bold for all headings */
+    line-height: 1.4; /* Adjusted line height for headings */
     color: #2c3e50; /* Dark blue-gray for headings */
-    margin-bottom: 0.75em;
+    margin-top: 1em;
+    margin-bottom: 0.6em; /* Adjusted margin for headings */
 }
 
+h1 { font-size: 2.8em; font-weight: 800; } /* Extra bold for H1 */
+h2 { font-size: 2.2em; }
+h3 { font-size: 1.8em; }
+h4 { font-size: 1.5em; }
+
 p {
-    margin-bottom: 1em;
+    margin-bottom: 1.2em; /* Slightly more space after paragraphs */
+    font-weight: 400; /* Ensure paragraphs have regular weight */
 }
 
 a {
-    color: #1e90ff; /* Consistent link blue */
+    color: #007bff; /* Standard Bootstrap blue for links for better visibility */
     text-decoration: none;
-    transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
 }
 
 a:hover, a:focus {
@@ -85,45 +88,80 @@ ul, ol {
 
 /* Header Styles */
 .site-header {
-    background-color: #fff; /* White background for header */
+    background-color: #ffffff;
     padding: 15px 0;
-    border-bottom: 1px solid #eee; /* Light border */
-    text-align: center; /* Center align header content */
+    border-bottom: 2px solid #f0f0f0; /* Slightly more pronounced border */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.site-branding {
-    /* Container for logo/title, already has margin auto from .container */
+.header-inner-container {
+    display: flex;
+    align-items: center; /* Vertically align logo and title area */
+    justify-content: space-between; /* Pushes logo to one side and title to other, adjust as needed */
+    gap: 20px; /* Space between logo and title area */
 }
 
-.site-title-container {
-    display: inline-block; /* Allows centering if text-align is on parent */
+.logo-area {
+    flex-shrink: 0; /* Prevent logo from shrinking */
 }
 
-.site-logo-link {
+#site-logo {
+    max-height: 70px; /* Max height for the logo */
+    width: auto;      /* Maintain aspect ratio */
+    display: block;   /* Remove extra space below image */
+}
+
+.site-title-area {
+    text-align: right; /* Align text to the right for RTL */
+    flex-grow: 1; /* Allow title area to take available space */
+}
+
+.site-title-link {
     text-decoration: none;
 }
 
 .site-title-text {
-    font-size: 2.5em; /* Larger font for "Torobche" */
-    font-weight: bold;
-    color: #ff69b4; /* Pink color for brand */
-    /* A simple text shadow for a bit of depth */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    font-size: 2.8em; /* Adjusted font size */
+    font-weight: 800; /* Extra bold to match H1 */
+    color: #ff69b4;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
     transition: color 0.3s ease;
+    margin: 0;
+    line-height: 1.1;
 }
 
-.site-logo-link:hover .site-title-text,
-.site-logo-link:focus .site-title-text {
-    color: #1e90ff; /* Blue color on hover/focus */
+.site-title-link:hover .site-title-text,
+.site-title-link:focus .site-title-text {
+    color: #1e90ff;
 }
 
-/* Basic responsive adjustment for header text */
+.site-description-text {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 2px;
+    margin-bottom: 0;
+    font-weight: 300; /* Lighter weight for tagline */
+}
+
+/* Responsive adjustments for Header */
 @media (max-width: 768px) {
-    .site-title-text {
-        font-size: 2em;
+    .header-inner-container {
+        flex-direction: column; /* Stack logo and title on smaller screens */
+        align-items: center; /* Center items when stacked */
+        text-align: center;
     }
-    .site-header {
-        padding: 10px 0;
+    .site-title-area {
+        text-align: center; /* Center title text on mobile */
+        margin-top:10px;
+    }
+    .site-title-text {
+        font-size: 2.2em;
+    }
+    .site-description-text {
+        font-size: 0.8em;
+    }
+    #site-logo {
+        max-height: 50px;
     }
 }
 

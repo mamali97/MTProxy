@@ -118,8 +118,8 @@ add_action( 'after_setup_theme', 'torobche_landing_content_width', 0 );
  * Enqueue scripts and styles.
  */
 function torobche_landing_scripts() {
-	// Enqueue Google Fonts (Vazirmatn)
-	wp_enqueue_style( 'torobche-google-fonts', 'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap', array(), null );
+	// Enqueue Google Fonts (Vazirmatn with more weights)
+	wp_enqueue_style( 'torobche-google-fonts', 'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap', array(), null );
 
 	// Enqueue main stylesheet
 	wp_enqueue_style( 'torobche-landing-style', get_stylesheet_uri(), array('torobche-google-fonts'), _S_VERSION );
