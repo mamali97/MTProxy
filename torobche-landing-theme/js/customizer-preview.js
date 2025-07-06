@@ -8,47 +8,66 @@
 
 ( function( $ ) {
 
-	// Site title and description.
+	// Site title and description. (from core)
 	wp.customize( 'blogname', function( value ) {
 		value.bind( function( to ) {
-			$( '.site-title-text' ).text( to ); // Make sure your theme uses .site-title a or a span inside
+			// Check if .site-title-text exists, otherwise use .text-logo if that's the fallback
+			if ( $( '.site-title-text' ).length ) {
+				$( '.site-title-text' ).text( to );
+			} else if ( $( '.text-logo' ).length ) {
+				$( '.text-logo' ).text( to );
+			}
 		} );
 	} );
 	wp.customize( 'blogdescription', function( value ) {
 		value.bind( function( to ) {
-			$( '.site-description-text' ).text( to ); // Make sure your theme uses .site-description
+			$( '.site-description-text' ).text( to );
 		} );
 	} );
+
+    // Header Lums CTA Text
+    wp.customize( 'header_lums_cta_text', function( value ) {
+        value.bind( function( to ) {
+            $( '.header-button-lums' ).text( to );
+        } );
+    } );
 
 	// Hero Title
 	wp.customize( 'hero_title', function( value ) {
 		value.bind( function( to ) {
-			$( '.hero-title' ).text( to );
+			$( '.hero-title-lums' ).text( to ); // Updated selector
 		} );
 	} );
 
-	// Hero Tagline
-	wp.customize( 'hero_tagline', function( value ) {
-		value.bind( function( to ) {
-			$( '.hero-tagline' ).text( to );
-		} );
-	} );
+	// Hero Tagline - Removed as new design uses hero_description for main text
+	// wp.customize( 'hero_tagline', function( value ) { ... } );
 
 	// Hero Description
 	wp.customize( 'hero_description', function( value ) {
 		value.bind( function( to ) {
-			// If content might have HTML, use .html() instead of .text()
-			// Ensure proper sanitization (wp_kses_post on PHP side is good)
-			$( '.hero-description' ).html( to );
+			$( '.hero-description-lums' ).html( to ); // Updated selector
 		} );
 	} );
 
-	// Hero CTA Text
+	// Hero CTA Text (Main)
 	wp.customize( 'hero_cta_text', function( value ) {
 		value.bind( function( to ) {
-			$( '.hero-cta' ).text( to );
+			$( '.btn-primary-lums-hero' ).text( to ); // Updated selector
 		} );
 	} );
+
+    // Hero Secondary CTA Text
+    wp.customize( 'hero_secondary_cta_text', function( value ) {
+        value.bind( function( to ) {
+            var button = $( '.btn-secondary-lums-hero' );
+            if ( to ) {
+                button.text( to ).show(); // Show and update text
+            } else {
+                button.text( to ).hide(); // Hide if empty, text(to) will clear it
+            }
+        } );
+    } );
+
 
 	// Note: Hero CTA Link and Hero Background Image typically use 'refresh' transport
 	// as live previewing URL changes or background images can be more complex

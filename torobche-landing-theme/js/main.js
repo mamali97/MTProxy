@@ -1,143 +1,86 @@
+/**
+ * Main JavaScript file for Torobche Landing Page (Lums Inspired Redesign)
+ *
+ * This file will contain scripts for animations, sticky header, mobile menu,
+ * sliders, and other interactive elements inspired by the Lums template.
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
-    const ageSelect = document.getElementById('age-select');
-    const priceLabel = document.getElementById('price-label'); // Get the whole paragraph
-    const priceDisplay = document.getElementById('product-price'); // The span for the price number
-    const selectedAgeField = document.getElementById('selected_age_field');
-    const finalPriceField = document.getElementById('final_price_field');
 
-    function updatePriceAndHiddenFields() {
-        if (ageSelect && ageSelect.value !== "" && ageSelect.value !== null) {
-            const selectedAge = parseInt(ageSelect.value);
-            const basePrice = parseInt(ageSelect.getAttribute('data-base-price'));
-            const priceIncrease = parseInt(ageSelect.getAttribute('data-price-increase'));
-            const baseAge = 2; // The age for which the base price is set (e.g., 2 years)
+    // Placeholder for now
+    console.log('Torobche Landing Page - Lums Inspired JS Loaded');
 
-            let calculatedPrice = basePrice;
-            if (selectedAge > baseAge) {
-                calculatedPrice += (selectedAge - baseAge) * priceIncrease;
-            }
+    // Example: Basic smooth scroll for on-page links (will be refined)
+    // const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+    // for (let link of smoothScrollLinks) {
+    //     link.addEventListener('click', function(e) {
+    //         e.preventDefault();
+    //         const targetId = this.getAttribute('href');
+    //         const targetElement = document.querySelector(targetId);
+    //         if (targetElement) {
+    //             targetElement.scrollIntoView({
+    //                 behavior: 'smooth'
+    //             });
+    //         }
+    //     });
+    // }
 
-            // console.log('Selected Age:', selectedAge, 'Base Price:', basePrice, 'Increase:', priceIncrease, 'Calculated Price:', calculatedPrice);
+    // More scripts for Lums-like features will be added here.
 
-            if (!isNaN(calculatedPrice) && priceDisplay && priceLabel) {
-                const formattedPrice = calculatedPrice.toLocaleString('fa-IR');
-
-                // Start fade out the price number
-                priceDisplay.style.opacity = '0';
-
-                setTimeout(function() {
-                    // Update the text content after fade out
-                    priceDisplay.textContent = formattedPrice;
-                    // Start fade in the new price number
-                    priceDisplay.style.opacity = '1';
-                }, 100); // Half of the CSS transition duration (0.2s / 2 = 100ms)
-
-                // Ensure the whole price label <p> is visible
-                priceLabel.classList.add('price-visible');
-            }
-            if (selectedAgeField) {
-                selectedAgeField.value = selectedAge;
-            }
-            if (finalPriceField) {
-                finalPriceField.value = calculatedPrice;
-            }
-        } else if (priceLabel) {
-            // priceLabel.style.display = 'none'; // Replaced by class toggle
-            priceLabel.classList.remove('price-visible');
-            if(selectedAgeField) selectedAgeField.value = "";
-            if(finalPriceField) finalPriceField.value = "";
-        }
+    // Preloader fade out
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        window.addEventListener('load', function() {
+            preloader.classList.add('preloader-hidden');
+        });
     }
 
-    if (ageSelect) {
-        // Check if placeholder already exists from PHP (it shouldn't based on current PHP)
-        // Or if the first option is not the placeholder we want to add
-        let placeholderExists = false;
-        if (ageSelect.options.length > 0 && ageSelect.options[0].value === "") {
-            placeholderExists = true;
-        }
+    // Sticky Header & Mobile Menu for Lums Inspired Header
+    const siteHeaderLums = document.querySelector('.site-header-lums');
+    const menuToggleLums = document.querySelector('.menu-toggle-lums');
+    const primaryMenuLums = document.getElementById('primary-menu-lums'); // Assumes ul has this ID from wp_nav_menu
 
-        if (!placeholderExists) {
-            const placeholderOption = document.createElement('option');
-            placeholderOption.value = "";
-            placeholderOption.textContent = "لطفا سن را انتخاب کنید...";
-            placeholderOption.disabled = true;
-            placeholderOption.selected = true;
-            ageSelect.insertBefore(placeholderOption, ageSelect.firstChild);
-        } else {
-            // If for some reason a blank value option is there, make sure it's selected.
-            ageSelect.value = "";
-        }
-
-        ageSelect.addEventListener('change', updatePriceAndHiddenFields);
-        updatePriceAndHiddenFields(); // Initialize on load
-    }
-
-    // Smooth scroll for anchor links (e.g., Hero CTA to Order Form)
-    const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
-    for (let link of smoothScrollLinks) {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
+    if (siteHeaderLums) {
+        const headerScrollObserver = new IntersectionObserver(
+            ([e]) => e.target.classList.toggle('header-scrolled', e.intersectionRatio < 1),
+            { threshold: [1] } // When 100% of the header is visible/not visible
+        );
+        // To make it sticky from a certain scroll point instead of initial transparency:
+        // Create a dummy element at the top of the page or use a more complex scroll listener.
+        // For simplicity, this example makes it change style as soon as it's not fully at the top.
+        // A common way is to check window.scrollY:
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) { // Adjust 50 to your desired scroll offset
+                siteHeaderLums.classList.add('header-scrolled');
+            } else {
+                siteHeaderLums.classList.remove('header-scrolled');
             }
         });
     }
 
-    // Intersection Observer for Scroll Animations
-    const animatedElements = document.querySelectorAll('.fade-in-on-scroll');
+    if (menuToggleLums && primaryMenuLums) {
+        menuToggleLums.addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+            this.setAttribute('aria-expanded', !expanded);
+            primaryMenuLums.classList.toggle('toggled-lums');
+            // Optional: Toggle body class to prevent scrolling when mobile menu is open
+            // document.body.classList.toggle('mobile-menu-open-lums');
+        });
+    }
 
-    if (animatedElements.length > 0) {
-        const observerOptions = {
-            root: null, // relative to document viewport
-            rootMargin: '0px',
-            threshold: 0.1 // A small percentage of the target is visible
-        };
-
-        const observerCallback = (entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Stop observing once animated
+    // Close mobile menu when a link is clicked (for single-page navigation)
+    if (primaryMenuLums) {
+        const menuLinks = primaryMenuLums.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (primaryMenuLums.classList.contains('toggled-lums')) {
+                    menuToggleLums.setAttribute('aria-expanded', 'false');
+                    primaryMenuLums.classList.remove('toggled-lums');
+                    // document.body.classList.remove('mobile-menu-open-lums');
                 }
             });
-        };
-
-        const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
-        animatedElements.forEach(el => scrollObserver.observe(el));
+        });
     }
 
-    // Intersection Observer for Staggered List Items (Product Features)
-    const productFeaturesList = document.querySelector('.product-features ul');
-    if (productFeaturesList) {
-        const featureItems = productFeaturesList.querySelectorAll('.staggered-fade-item');
-
-        if (featureItems.length > 0) {
-            const featureObserverOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.2 // A bit more of the list should be visible
-            };
-
-            const featureObserverCallback = (entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        featureItems.forEach((item, index) => {
-                            item.style.transitionDelay = (index * 150) + 'ms'; // Stagger delay
-                            item.classList.add('is-visible');
-                        });
-                        observer.unobserve(productFeaturesList); // Stop observing the list once items are triggered
-                    }
-                });
-            };
-
-            const featureListObserver = new IntersectionObserver(featureObserverCallback, featureObserverOptions);
-            featureListObserver.observe(productFeaturesList);
-        }
-    }
 
 });

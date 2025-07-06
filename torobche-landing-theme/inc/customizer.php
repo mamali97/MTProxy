@@ -44,121 +44,215 @@ function torobche_landing_customize_register( $wp_customize ) {
     // We are primarily ensuring that our theme correctly uses `display_header_text()`.
     // No specific new controls needed here for this step if relying on core title/tagline display options.
 
+    // ============== Preloader Settings ==============
+    $wp_customize->add_section( 'torobche_preloader_section', array(
+        'title'      => __( 'تنظیمات Preloader', 'torobche-landing' ),
+        'priority'   => 25, // Before Hero section
+    ) );
+
+    $wp_customize->add_setting( 'show_preloader', array(
+        'default'           => true,
+        'sanitize_callback' => 'torobche_landing_sanitize_checkbox', // Custom sanitizer for checkbox
+    ) );
+    $wp_customize->add_control( 'show_preloader_control', array(
+        'label'    => __( 'نمایش Preloader هنگام بارگذاری صفحه', 'torobche-landing' ),
+        'section'  => 'torobche_preloader_section',
+        'settings' => 'show_preloader',
+        'type'     => 'checkbox',
+    ) );
+
+    // Optional: Setting for preloader logo image
+    // $wp_customize->add_setting( 'preloader_logo', array(
+	// 	'default'           => get_template_directory_uri() . '/images/preloader-logo.png', // Provide a default if you have one
+	// 	'sanitize_callback' => 'esc_url_raw',
+	// ) );
+	// $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'preloader_logo_control', array(
+	// 	'label'       => __( 'تصویر لوگو برای Preloader', 'torobche-landing' ),
+	// 	'section'     => 'torobche_preloader_section',
+	// 	'settings'    => 'preloader_logo',
+	// ) ) );
+
+    // ============== Header Settings (Lums Inspired) ==============
+    $wp_customize->add_section( 'torobche_header_lums_section', array(
+        'title'      => __( 'تنظیمات هدر (طرح جدید)', 'torobche-landing' ),
+        'priority'   => 28, // Adjust priority as needed
+    ) );
+
+    // Header CTA Button Text
+    $wp_customize->add_setting( 'header_lums_cta_text', array(
+        'default'           => __( 'سفارش دهید', 'torobche-landing' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+    $wp_customize->add_control( 'header_lums_cta_text_control', array(
+        'label'    => __( 'متن دکمه CTA در هدر', 'torobche-landing' ),
+        'section'  => 'torobche_header_lums_section',
+        'settings' => 'header_lums_cta_text',
+        'type'     => 'text',
+    ) );
+    // Selective refresh for header CTA text
+    if ( isset( $wp_customize->selective_refresh ) ) {
+        $wp_customize->selective_refresh->add_partial( 'header_lums_cta_text_partial', array(
+            'selector' => '.header-button-lums',
+            'settings' => 'header_lums_cta_text',
+            'render_callback' => function() {
+                return esc_html(get_theme_mod('header_lums_cta_text', __('سفارش دهید', 'torobche-landing')));
+            },
+        ) );
+    }
+
+    // Header CTA Button Link
+    $wp_customize->add_setting( 'header_lums_cta_link', array(
+        'default'           => '#order-form', // Default link
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh', // Link changes often need refresh
+    ) );
+    $wp_customize->add_control( 'header_lums_cta_link_control', array(
+        'label'    => __( 'لینک دکمه CTA در هدر', 'torobche-landing' ),
+        'section'  => 'torobche_header_lums_section',
+        'settings' => 'header_lums_cta_link',
+        'type'     => 'url',
+    ) );
+
+
     // ============== Hero Section Settings ==============
-	$wp_customize->add_section( 'torobche_hero_section', array(
-		'title'      => __( 'تنظیمات بخش اصلی (Hero)', 'torobche-landing' ),
-		'priority'   => 30, // Adjust priority as needed
+	$wp_customize->add_section( 'torobche_hero_lums_section', array( // New section ID for clarity
+		'title'      => __( 'تنظیمات بخش اصلی Hero (طرح جدید)', 'torobche-landing' ),
+		'priority'   => 30,
 	) );
 
-	// Hero Background Image
-	$wp_customize->add_setting( 'hero_background_image', array(
-		'default'           => '', // No default image
-		'sanitize_callback' => 'esc_url_raw', // Sanitize URL
-		'transport'         => 'refresh', // or 'postMessage' with JS handler
-	) );
-	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_background_image_control', array(
-		'label'       => __( 'تصویر پس زمینه Hero', 'torobche-landing' ),
-		'section'     => 'torobche_hero_section',
-		'settings'    => 'hero_background_image',
-		'description' => __( 'یک تصویر برای پس زمینه اصلی بخش Hero آپلود کنید.', 'torobche-landing' ),
-	) ) );
-
-	// Hero Title
-	$wp_customize->add_setting( 'hero_title', array(
-		'default'           => __( 'لباس جادویی', 'torobche-landing' ),
-		'sanitize_callback' => 'sanitize_text_field',
-		'transport'         => 'postMessage',
-	) );
-	$wp_customize->add_control( 'hero_title_control', array(
-		'label'    => __( 'عنوان اصلی Hero', 'torobche-landing' ),
-		'section'  => 'torobche_hero_section',
-		'settings' => 'hero_title',
-		'type'     => 'text',
-	) );
-	$wp_customize->selective_refresh->add_partial( 'hero_title_partial', array(
-        'selector' => '.hero-title',
-        'settings' => 'hero_title',
-        'render_callback' => function() { return get_theme_mod('hero_title'); },
-    ) );
-
-	// Hero Tagline
-	$wp_customize->add_setting( 'hero_tagline', array(
-		'default'           => __( 'خلاقیت بی‌پایان، هر روز یک ماجراجویی رنگی!', 'torobche-landing' ),
-		'sanitize_callback' => 'sanitize_text_field',
-		'transport'         => 'postMessage',
-	) );
-	$wp_customize->add_control( 'hero_tagline_control', array(
-		'label'    => __( 'شعار Hero', 'torobche-landing' ),
-		'section'  => 'torobche_hero_section',
-		'settings' => 'hero_tagline',
-		'type'     => 'text',
-	) );
-    $wp_customize->selective_refresh->add_partial( 'hero_tagline_partial', array(
-        'selector' => '.hero-tagline',
-        'settings' => 'hero_tagline',
-        'render_callback' => function() { return get_theme_mod('hero_tagline'); },
-    ) );
-
-	// Hero Description
-	$wp_customize->add_setting( 'hero_description', array(
-		'default'           => __( 'یک ست بلوز و شلوار خاص با طرح‌های جذاب بچه‌گانه که کودکان با ماژیک قابل شستشوی همراه آن، می‌توانند بارها و بارها آن را رنگ‌آمیزی کنند. مناسب برای سنین ۲ تا ۶ سال، بدون محدودیت جنسیتی.', 'torobche-landing' ),
-		'sanitize_callback' => 'wp_kses_post', // Allows basic HTML
-		'transport'         => 'postMessage',
-	) );
-	$wp_customize->add_control( 'hero_description_control', array(
-		'label'    => __( 'توضیحات Hero', 'torobche-landing' ),
-		'section'  => 'torobche_hero_section',
-		'settings' => 'hero_description',
-		'type'     => 'textarea',
-	) );
-    $wp_customize->selective_refresh->add_partial( 'hero_description_partial', array(
-        'selector' => '.hero-description',
-        'settings' => 'hero_description',
-        'render_callback' => function() { return wp_kses_post(get_theme_mod('hero_description')); },
-    ) );
-
-	// Hero CTA Button Text
-	$wp_customize->add_setting( 'hero_cta_text', array(
-		'default'           => __( 'سفارش لباس جادویی خودم', 'torobche-landing' ),
-		'sanitize_callback' => 'sanitize_text_field',
-		'transport'         => 'postMessage',
-	) );
-	$wp_customize->add_control( 'hero_cta_text_control', array(
-		'label'    => __( 'متن دکمه فراخوان Hero', 'torobche-landing' ),
-		'section'  => 'torobche_hero_section',
-		'settings' => 'hero_cta_text',
-		'type'     => 'text',
-	) );
-    $wp_customize->selective_refresh->add_partial( 'hero_cta_text_partial', array(
-        'selector' => '.hero-cta',
-        'settings' => 'hero_cta_text',
-        'render_callback' => function() { return get_theme_mod('hero_cta_text'); },
-    ) );
-
-	// Hero CTA Button Link
-	$wp_customize->add_setting( 'hero_cta_link', array(
-		'default'           => '#order-form',
-		'sanitize_callback' => 'esc_url_raw',
-		'transport'         => 'refresh', // Links usually need refresh
-	) );
-	$wp_customize->add_control( 'hero_cta_link_control', array(
-		'label'    => __( 'لینک دکمه فراخوان Hero', 'torobche-landing' ),
-		'section'  => 'torobche_hero_section',
-		'settings' => 'hero_cta_link',
-		'type'     => 'url',
-	) );
-
-	// Hero Product Image (for the placeholder area)
-	$wp_customize->add_setting( 'hero_product_image', array(
+	// Hero Background Image (Re-using 'hero_background_image' setting ID for now)
+	$wp_customize->add_setting( 'hero_background_image', array( // Keep ID consistent if data should persist
 		'default'           => '',
 		'sanitize_callback' => 'esc_url_raw',
 		'transport'         => 'refresh',
 	) );
-	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_product_image_control', array(
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_background_image_control_lums', array( // New control ID
+		'label'       => __( 'تصویر پس زمینه Hero', 'torobche-landing' ),
+		'section'     => 'torobche_hero_lums_section',
+		'settings'    => 'hero_background_image',
+		'description' => __( 'تصویر بزرگ برای پس زمینه اصلی بخش Hero. اگر خالی باشد از گرادینت پیش‌فرض استفاده می‌شود.', 'torobche-landing' ),
+	) ) );
+
+	// Hero Title (Re-using 'hero_title' setting ID)
+	$wp_customize->add_setting( 'hero_title', array( // Keep ID consistent
+		'default'           => __( 'جادوی رنگ‌ها بر تن فرزند شما!', 'torobche-landing' ),
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'postMessage',
+	) );
+	$wp_customize->add_control( 'hero_title_control_lums', array( // New control ID
+		'label'    => __( 'عنوان اصلی Hero', 'torobche-landing' ),
+		'section'  => 'torobche_hero_lums_section',
+		'settings' => 'hero_title',
+		'type'     => 'text',
+	) );
+	// Update selective refresh selector if class name changed
+    $wp_customize->selective_refresh->remove_partial('hero_title_partial'); // Remove old one if selector changes
+	$wp_customize->selective_refresh->add_partial( 'hero_title_lums_partial', array(
+        'selector' => '.hero-title-lums', // Updated selector
+        'settings' => 'hero_title',
+        'render_callback' => function() { return esc_html(get_theme_mod('hero_title')); },
+    ) );
+
+	// Hero Description (Re-using 'hero_description' setting ID)
+	// Note: Lums Hero has a title and a description, no separate tagline. We'll use 'hero_description' for the main text.
+	$wp_customize->add_setting( 'hero_description', array( // Keep ID consistent
+		'default'           => __( 'با لباس‌های جادویی تربچه، هر روز یک نقاشی جدید! خلاقیت بی‌پایان با رنگ‌های شاد و قابل شستشو، مخصوص هنرمندان کوچک ۲ تا ۶ ساله.', 'torobche-landing' ),
+		'sanitize_callback' => 'wp_kses_post',
+		'transport'         => 'postMessage',
+	) );
+	$wp_customize->add_control( 'hero_description_control_lums', array( // New control ID
+		'label'    => __( 'متن توضیحات Hero', 'torobche-landing' ),
+		'section'  => 'torobche_hero_lums_section',
+		'settings' => 'hero_description',
+		'type'     => 'textarea',
+	) );
+    $wp_customize->selective_refresh->remove_partial('hero_description_partial'); // Remove old one
+	$wp_customize->selective_refresh->add_partial( 'hero_description_lums_partial', array(
+        'selector' => '.hero-description-lums', // Updated selector
+        'settings' => 'hero_description',
+        'render_callback' => function() { return wp_kses_post(get_theme_mod('hero_description')); },
+    ) );
+    // Remove old Hero Tagline setting if not used in new design
+    $wp_customize->remove_control('hero_tagline_control');
+    $wp_customize->remove_setting('hero_tagline');
+    $wp_customize->selective_refresh->remove_partial('hero_tagline_partial');
+
+
+	// Hero CTA Button Text (Main - Re-using 'hero_cta_text')
+	$wp_customize->add_setting( 'hero_cta_text', array( // Keep ID consistent
+		'default'           => __( 'لباس منو همین الان می‌خوام!', 'torobche-landing' ),
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'postMessage',
+	) );
+	$wp_customize->add_control( 'hero_cta_text_control_lums', array( // New control ID
+		'label'    => __( 'متن دکمه اصلی Hero', 'torobche-landing' ),
+		'section'  => 'torobche_hero_lums_section',
+		'settings' => 'hero_cta_text',
+		'type'     => 'text',
+	) );
+    $wp_customize->selective_refresh->remove_partial('hero_cta_text_partial'); // Remove old one
+	$wp_customize->selective_refresh->add_partial( 'hero_cta_text_lums_partial', array(
+        'selector' => '.btn-primary-lums-hero', // Updated selector
+        'settings' => 'hero_cta_text',
+        'render_callback' => function() { return esc_html(get_theme_mod('hero_cta_text')); },
+    ) );
+
+	// Hero CTA Button Link (Main - Re-using 'hero_cta_link')
+	$wp_customize->add_setting( 'hero_cta_link', array( // Keep ID consistent
+		'default'           => '#order-form',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'hero_cta_link_control_lums', array( // New control ID
+		'label'    => __( 'لینک دکمه اصلی Hero', 'torobche-landing' ),
+		'section'  => 'torobche_hero_lums_section',
+		'settings' => 'hero_cta_link',
+		'type'     => 'url',
+	) );
+
+    // Hero Secondary CTA Button Text
+	$wp_customize->add_setting( 'hero_secondary_cta_text', array(
+		'default'           => __( 'طرح‌ها رو ببینم!', 'torobche-landing' ),
+		'sanitize_callback' => 'sanitize_text_field',
+		'transport'         => 'postMessage',
+	) );
+	$wp_customize->add_control( 'hero_secondary_cta_text_control', array(
+		'label'    => __( 'متن دکمه دوم Hero (اختیاری)', 'torobche-landing' ),
+		'section'  => 'torobche_hero_lums_section',
+		'settings' => 'hero_secondary_cta_text',
+		'type'     => 'text',
+	) );
+    $wp_customize->selective_refresh->add_partial( 'hero_secondary_cta_text_partial', array(
+        'selector' => '.btn-secondary-lums-hero',
+        'settings' => 'hero_secondary_cta_text',
+        'render_callback' => function() { return esc_html(get_theme_mod('hero_secondary_cta_text')); },
+    ) );
+
+	// Hero Secondary CTA Button Link
+	$wp_customize->add_setting( 'hero_secondary_cta_link', array(
+		'default'           => '#gallery', // Example link
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( 'hero_secondary_cta_link_control', array(
+		'label'    => __( 'لینک دکمه دوم Hero (اختیاری)', 'torobche-landing' ),
+		'section'  => 'torobche_hero_lums_section',
+		'settings' => 'hero_secondary_cta_link',
+		'type'     => 'url',
+	) );
+
+	// Hero Product Image (Re-using 'hero_product_image' setting ID)
+	$wp_customize->add_setting( 'hero_product_image', array( // Keep ID consistent
+		'default'           => '',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'hero_product_image_control_lums', array( // New control ID
 		'label'       => __( 'تصویر محصول در بخش Hero', 'torobche-landing' ),
-		'section'     => 'torobche_hero_section', // Add to existing Hero section
+		'section'     => 'torobche_hero_lums_section',
 		'settings'    => 'hero_product_image',
-		'description' => __( 'این تصویر در کنار متن Hero نمایش داده می‌شود (در جایگاه placeholder فعلی). اگر تصویر پس‌زمینه کلی برای Hero نیز تنظیم شده باشد، این تصویر روی آن قرار می‌گیرد.', 'torobche-landing' ),
+		'description' => __( 'این تصویر در کنار متن Hero نمایش داده می‌شود.', 'torobche-landing' ),
 	) ) );
 
 	// ============== Product Details Section Settings ==============
@@ -514,4 +608,14 @@ function torobche_landing_customizer_control_js() {
 }
 // add_action( 'customize_controls_enqueue_scripts', 'torobche_landing_customizer_control_js' );
 
+/**
+ * Sanitize checkbox.
+ *
+ * @param bool $checked Whether the checkbox is checked.
+ * @return bool Whether the checkbox is checked.
+ */
+function torobche_landing_sanitize_checkbox( $checked ) {
+    // Boolean check.
+    return ( ( isset( $checked ) && true === $checked ) ? true : false );
+}
 ?>

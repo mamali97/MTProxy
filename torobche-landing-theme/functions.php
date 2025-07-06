@@ -65,7 +65,8 @@ function torobche_landing_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__( 'Primary', 'torobche-landing' ),
+			'menu-1'       => esc_html__( 'Primary (Legacy - Pre-Lums)', 'torobche-landing' ),
+			'primary_lums' => esc_html__( 'Lums Header Menu', 'torobche-landing' ),
 		)
 	);
 

@@ -1,17 +1,17 @@
 /*
-Theme Name: Torobche Landing Page
+Theme Name: Torobche Landing Page - Lums Inspired Redesign
 Theme URI: https://example.com/torobche-landing-theme/
 Author: Jules for User
 Author URI: https://example.com/
-Description: A landing page theme for Torobche, showcasing the 'Magical Clothes' product.
-Version: 1.0
+Description: A landing page theme for Torobche, redesigned with inspiration from Lums template, showcasing the 'Magical Clothes' product.
+Version: 2.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: landing-page, single-product, kids, e-commerce
+Tags: landing-page, single-product, kids, e-commerce, modern, animated
 Text Domain: torobche-landing
 */
 
-/* Basic Reset & Global Styles */
+/* Basic Reset & Global Styles - To be rebuilt based on Lums and new palette */
 *,
 *::before,
 *::after {
@@ -21,919 +21,496 @@ Text Domain: torobche-landing
 }
 
 html {
-    scroll-behavior: smooth; /* For smooth scrolling on anchor links */
-    direction: rtl; /* Right-to-left for Persian language */
+    scroll-behavior: smooth;
+    direction: rtl;
 }
 
 body {
-    font-family: 'Vazirmatn', 'Tahoma', Arial, sans-serif; /* Vazirmatn for Persian, with fallbacks */
-    line-height: 1.75; /* Increased line height for better readability */
-    color: #333; /* Darker text for better contrast */
-    background-color: #fdfdfd; /* Slightly cleaner off-white */
-    font-size: 17px; /* Slightly larger base font size for readability */
-    font-weight: 400; /* Regular weight for body text */
+    font-family: 'Vazirmatn', 'Tahoma', Arial, sans-serif; /* Fallback, will be refined */
+    font-size: 16px; /* Base, will be refined */
+    line-height: 1.6; /* Base, will be refined */
+    color: #333; /* Base, will be refined */
+    background-color: #fff; /* Base, will be refined */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-wrap: break-word; /* Prevent long strings from breaking layout */
-    word-wrap: break-word; /* Legacy support */
+    overflow-x: hidden; /* Prevent horizontal scrollbars during animation/layout */
 }
 
-/* Vazirmatn font is enqueued via functions.php, so @import is not needed here */
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Vazirmatn', 'Tahoma', Arial, sans-serif;
-    font-weight: 700;
-    line-height: 1.3; /* Slightly tighter for headings */
-    color: #2c3e50;
-    margin-top: 1.5rem; /* Consistent top margin */
-    margin-bottom: 0.75rem; /* Consistent bottom margin */
-}
-
-h1 { font-size: 2.6rem; font-weight: 800; margin-top: 0; } /* H1 usually doesn't need top margin if it's the first element */
-h2 { font-size: 2rem; } /* Adjusted sizes for better hierarchy */
-h3 { font-size: 1.6rem; }
-h4 { font-size: 1.3rem; }
-
-p {
-    margin-bottom: 1rem; /* Standardized paragraph margin */
-    font-weight: 400;
-}
-
-a {
-    color: #007bff; /* Standard Bootstrap blue for links for better visibility */
-    text-decoration: none;
-    transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
-}
-
-a:hover, a:focus {
-    color: #ff69b4; /* Pink hover for links */
-    text-decoration: underline;
-}
-
-/* Add a general focus style for accessibility, can be refined per element */
-a:focus,
-button:focus,
-input:focus,
-select:focus,
-textarea:focus {
-    outline: 2px solid #007bff; /* Or a theme color */
-    outline-offset: 2px;
-    /* box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Alternative focus style */
-}
-
-/* For elements where we have custom focus (like form inputs with pink shadow), remove the default blue outline */
-.form-group input:focus,
-.form-group textarea:focus,
-#age-select:focus {
-    outline: none; /* We have a custom box-shadow for these */
-}
-
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-ul, ol {
-    padding-right: 20px; /* Standard padding for lists in RTL */
-}
-
-
+/* Container - Basic, will be styled further */
 .container {
     width: 90%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px 0;
+    max-width: 1170px; /* Common max-width, can be adjusted */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
-/* Header Styles */
-.site-header {
-    background-color: #ffffff;
-    padding: 15px 0;
-    border-bottom: 2px solid #f0f0f0; /* Slightly more pronounced border */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+/* Accessibility */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
 }
 
-.header-inner-container {
+/* More styles will be added progressively */
+
+/* Lums Inspired Hero Section Styles */
+.hero-section-lums {
+    min-height: 90vh; /* Make hero take up most of the viewport height */
     display: flex;
-    align-items: center; /* Vertically align logo and title area */
-    justify-content: space-between; /* Pushes logo to one side and title to other, adjust as needed */
-    gap: 20px; /* Space between logo and title area */
+    align-items: center;
+    padding: 80px 0; /* Adjust padding as needed, considering header height */
+    background-color: #00A9E0; /* Default Primary Blue background if no image */
+    /* Default gradient if no image, matching the new palette */
+    background-image: linear-gradient(135deg, #00A9E0 0%, #48D1CC 100%); /* Blue to Teal gradient */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden; /* To contain any absolute positioned pseudo-elements or animated items */
 }
 
-.logo-area {
-    flex-shrink: 0; /* Prevent logo from shrinking */
-}
-
-#site-logo {
-    max-height: 70px; /* Max height for the logo */
-    width: auto;      /* Maintain aspect ratio */
-    display: block;   /* Remove extra space below image */
-}
-
-.site-title-area {
-    text-align: right; /* Align text to the right for RTL */
-    flex-grow: 1; /* Allow title area to take available space */
-}
-
-.site-title-link {
-    text-decoration: none;
-}
-
-.site-title-text {
-    font-size: 2.8em; /* Adjusted font size */
-    font-weight: 800; /* Extra bold to match H1 */
-    color: #ff69b4;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-    transition: color 0.3s ease;
-    margin: 0;
-    line-height: 1.1;
-}
-
-.site-title-link:hover .site-title-text,
-.site-title-link:focus .site-title-text {
-    color: #007bff;
-}
-
-.site-description-text {
-    font-size: 0.9em;
-    color: #777;
-    margin-top: 2px;
-    margin-bottom: 0;
-    font-weight: 300; /* Lighter weight for tagline */
-}
-
-/* Responsive adjustments for Header */
-@media (max-width: 768px) {
-    .header-inner-container {
-        flex-direction: column; /* Stack logo and title on smaller screens */
-        align-items: center; /* Center items when stacked */
-        text-align: center;
-    }
-    .site-title-area {
-        text-align: center; /* Center title text on mobile */
-        margin-top:10px;
-    }
-    .site-title-text {
-        font-size: 2.2em;
-    }
-    .site-description-text {
-        font-size: 0.8em;
-    }
-    #site-logo {
-        max-height: 50px;
-    }
-}
-
-/* Hero Section Styles */
-.hero-section {
-    background-color: #e6f7ff; /* Default Light blue background */
-    padding: 60px 0;
-    text-align: center;
-    background-size: cover; /* Ensure background image covers the section */
-    background-position: center center; /* Center the background image */
-    position: relative; /* For potential overlay */
-}
-
-/* Optional: Add an overlay if a background image is used, to ensure text readability */
-.hero-section.has-bg-image::before {
+.hero-section-lums.has-bg-image::before { /* Overlay for background image */
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3); /* Adjust opacity as needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay, adjust opacity */
     z-index: 1;
 }
 
-.hero-content {
-    position: relative; /* To sit on top of the overlay */
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-}
-
-.hero-text {
-    max-width: 600px;
-}
-
-.hero-title {
-    font-size: 3rem; /* Using rem for scalability */
-    color: #ff69b4; /* Pink for title */
-    margin-bottom: 0.5rem; /* Adjusted margin */
-    font-weight: 800; /* Consistent with H1 definition */
-    line-height: 1.2;
-}
-
-.hero-tagline {
-    font-size: 1.6rem; /* Slightly larger tagline */
-    color: #007bff; /* Standard Blue for tagline */
-    margin-bottom: 1.5rem; /* Adjusted margin */
-    font-weight: 400; /* Normal weight for tagline */
-}
-
-.hero-description {
-    font-size: 1.1rem; /* Using rem */
-    color: #444;
-    margin-bottom: 2rem; /* More space before CTA */
-    line-height: 1.75; /* Consistent with body */
-}
-
-/* Text color adjustments when there's a background image with overlay */
-.hero-section.has-bg-image .hero-title,
-.hero-section.has-bg-image .hero-tagline,
-.hero-section.has-bg-image .hero-description p, /* Assuming description might have <p> tags from wp_kses_post */
-.hero-section.has-bg-image .hero-description {
-    color: #fff; /* White text for better contrast on dark overlay */
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* Add a subtle text shadow for readability */
-}
-/* If you want to keep pink/blue for title/tagline, target only description: */
-/*
-.hero-section.has-bg-image .hero-description p,
-.hero-section.has-bg-image .hero-description {
-    color: #f0f0f0; // Very light grey or white
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-}
-*/
-
-.hero-image-area { /* Container for the uploaded image or placeholder */
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-    overflow: hidden;
-    background-color: #fff; /* Fallback bg for the area */
-}
-
-.hero-product-showcase-image { /* Styles for the uploaded product image */
-    width: 100%;
-    max-height: 350px;
-    object-fit: contain;
-    display: block;
-}
-
-.hero-image-placeholder { /* Styles for the placeholder box when no image is uploaded */
-    width: 100%;
-    min-height: 250px;
-    height: 100%;
-    background-color: #fce4ec;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* border-radius and box-shadow are now on .hero-image-area, so remove from here if they were */
-    color: #888;
-    font-size: 1.2em;
-    padding: 20px; /* Add some padding to the text inside placeholder */
-    text-align: center; /* Center the text */
-}
-
-
-/* Responsive adjustments for Hero section image area */
-@media (min-width: 768px) {
-    .hero-image-area { /* This was previously .hero-image-placeholder for flex sizing */
-        flex: 0 0 400px; /* Fixed width for image container on larger screens */
-        height: auto; /* Allow height to adjust based on content or specific image */
-        align-self: center; /* Vertically center if content is shorter */
-    }
-     .hero-product-showcase-image {
-        max-height: 400px; /* Allow more height on desktop */
-    }
-    .hero-image-placeholder {
-        min-height: 300px; /* Ensure placeholder has decent height on desktop */
-    }
-}
-
-@media (max-width: 767px) {
-    .hero-image-area {
-        max-width: 320px; /* Slightly smaller max-width on mobile for the image area */
-        margin-top: 20px; /* Add some space above if stacked */
-    }
-    .hero-product-showcase-image {
-        max-height: 300px;
-    }
-     .hero-image-placeholder {
-        min-height: 200px; /* Placeholder height on mobile */
-    }
-}
-
-
-.btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem; /* Using rem for padding */
-    border-radius: 6px; /* Standardized border-radius */
-    text-decoration: none;
-    font-weight: 500; /* Medium weight */
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    font-size: 1.05rem; /* Adjusted font size */
-    cursor: pointer;
-    border: none;
-    text-align: center;
-    line-height: 1.5; /* Consistent line height */
-}
-
-.btn-primary { /* This is the Hero CTA button */
-    background-color: #ff69b4; /* Pink */
-    color: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.btn-primary:hover, .btn-primary:focus {
-    background-color: #e055a0; /* Darker Pink */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(224, 85, 160, 0.3); /* Enhanced shadow on hover */
-}
-.btn-primary:focus { /* Ensure focus style is distinct if outline is removed elsewhere */
-    outline: none; /* Remove default if we rely on box-shadow or other indicators */
-    box-shadow: 0 0 0 0.2rem rgba(255, 105, 180, 0.4), 0 4px 8px rgba(224, 85, 160, 0.3); /* Pink glow + hover shadow */
-}
-
-
-/* Responsive adjustments for Hero section */
-@media (min-width: 768px) {
-    .hero-content {
-        flex-direction: row;
-        text-align: right; /* For RTL, text on right, image on left */
-        gap: 50px;
-    }
-    .hero-text {
-        flex: 1;
-    }
-    /* .hero-image-placeholder replaced by .hero-image-area for flex sizing */
-}
-
-@media (max-width: 767px) {
-    .hero-title {
-        font-size: 2.5em;
-    }
-    .hero-tagline {
-        font-size: 1.2em;
-    }
-    .hero-description {
-        font-size: 1em;
-    }
-    .hero-section {
-        padding: 40px 0;
-    }
-}
-    height: 300px;
-    background-color: #fce4ec; /* Light pink background for image placeholder - for girls */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    color: #888;
-    font-size: 1.2em;
-}
-
-.btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem; /* Using rem for padding */
-    border-radius: 6px; /* Standardized border-radius */
-    text-decoration: none;
-    font-weight: 500; /* Medium weight */
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    font-size: 1.05rem; /* Adjusted font size */
-    cursor: pointer;
-    border: none;
-    text-align: center;
-    line-height: 1.5; /* Consistent line height */
-}
-
-.btn-primary { /* This is the Hero CTA button */
-    background-color: #ff69b4; /* Pink */
-    color: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.btn-primary:hover, .btn-primary:focus {
-    background-color: #e055a0; /* Darker Pink */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(224, 85, 160, 0.3); /* Enhanced shadow on hover */
-}
-.btn-primary:focus { /* Ensure focus style is distinct if outline is removed elsewhere */
-    outline: none; /* Remove default if we rely on box-shadow or other indicators */
-    box-shadow: 0 0 0 0.2rem rgba(255, 105, 180, 0.4), 0 4px 8px rgba(224, 85, 160, 0.3); /* Pink glow + hover shadow */
-}
-
-
-/* Responsive adjustments for Hero section */
-@media (min-width: 768px) {
-    .hero-content {
-        flex-direction: row;
-        text-align: right; /* For RTL, text on right, image on left */
-        gap: 50px;
-    }
-    .hero-text {
-        flex: 1;
-    }
-    .hero-image-placeholder {
-        flex: 0 0 400px; /* Fixed width for image container on larger screens */
-    }
-}
-
-@media (max-width: 767px) {
-    .hero-title {
-        font-size: 2.5em;
-    }
-    .hero-tagline {
-        font-size: 1.2em;
-    }
-    .hero-description {
-        font-size: 1em;
-    }
-    .hero-section {
-        padding: 40px 0;
-    }
-}
-
-/* General Section Styling */
-.section-title {
-    text-align: center;
-    font-size: 2rem; /* Adjusted from 2.2em */
-    color: #2c3e50; /* Consistent with heading colors */
-    margin-top: 2.5rem; /* More space above section titles */
-    margin-bottom: 2rem; /* More space below section titles */
+.hero-lums-container { /* Extends .container */
     position: relative;
-    padding-bottom: 0.75rem; /* Adjusted padding */
+    z-index: 2; /* Above overlay */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
-.section-title::after {
+.hero-lums-text-content {
+    flex: 1 1 55%; /* Takes more space */
+    max-width: 600px; /* Max width for text content */
+    color: #fff; /* Default text color on gradient/image */
+    text-align: right; /* RTL */
+}
+
+.hero-title-lums {
+    font-size: 3.2rem; /* Large and impactful */
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #fff; /* Ensure it's white even if .has-bg-image is not present but bg is dark */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Subtle shadow for readability */
+}
+
+.hero-description-lums {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    color: #f0f0f0; /* Slightly off-white for description */
+    font-weight: 300;
+}
+.hero-description-lums p { /* If description contains p tags from Customizer */
+    color: inherit; /* Inherit color from parent */
+    margin-bottom: 0.5em;
+}
+
+
+.hero-cta-buttons-lums {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start; /* RTL: align to right */
+}
+
+.btn.btn-primary-lums-hero {
+    background-color: #FF69B4; /* Pink */
+    color: #fff;
+    padding: 0.8rem 2rem;
+    border-radius: 30px; /* Pill shape */
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.btn.btn-primary-lums-hero:hover {
+    background-color: #e055a0; /* Darker pink */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(224, 85, 160, 0.4);
+}
+
+.btn.btn-secondary-lums-hero {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff; /* White outline */
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+.btn.btn-secondary-lums-hero:hover {
+    background-color: #fff;
+    color: #00A9E0; /* Primary blue text on hover */
+    transform: translateY(-3px);
+}
+
+.hero-lums-image-content {
+    flex: 1 1 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-product-image-lums {
+    max-width: 100%;
+    max-height: 450px; /* Control max height of product image */
+    object-fit: contain;
+    border-radius: 15px; /* Optional: rounded corners for product image */
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.15); Optional shadow */
+}
+
+.hero-product-image-placeholder-lums {
+    width: 100%;
+    min-height: 300px;
+    background-color: rgba(255,255,255,0.1); /* Light placeholder on dark bg */
+    border: 2px dashed rgba(255,255,255,0.3);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Animation Placeholders (will be refined with JS) */
+.animated-element {
+    opacity: 0; /* Start hidden */
+}
+.fade-in-up.delay-1.is-visible { animation-delay: 0.1s; }
+.fade-in-up.delay-2.is-visible { animation-delay: 0.3s; }
+.fade-in-up.delay-3.is-visible { animation-delay: 0.5s; }
+.fade-in-up.delay-4.is-visible { animation-delay: 0.7s; }
+
+
+/* Responsive Hero Lums */
+@media (max-width: 991px) {
+    .hero-lums-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-lums-text-content {
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .hero-cta-buttons-lums {
+        justify-content: center;
+        flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+    }
+    .hero-title-lums {
+        font-size: 2.5rem;
+    }
+    .hero-description-lums {
+        font-size: 1.05rem;
+    }
+    .hero-lums-image-content {
+        max-width: 80%; /* Image content can take more width */
+    }
+}
+
+
+/* Lums Inspired Header Styles */
+.site-header-lums {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 15px 0; /* Initial padding */
+    background-color: transparent; /* Initially transparent */
+    transition: background-color 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+}
+
+.site-header-lums.header-scrolled {
+    background-color: #00A9E0; /* Primary Blue - Or your chosen scrolled header bg */
+    /* Example using a subtle gradient:
+    background-image: linear-gradient(to right, #00A9E0, #00C4E0); */
+    padding: 10px 0; /* Reduced padding on scroll */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-lums-container { /* Extends .container */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-branding-lums .custom-logo-link img,
+.site-branding-lums .text-logo img { /* If placeholder is an img */
+    max-height: 50px; /* Adjust as needed */
+    width: auto;
+    transition: max-height 0.4s ease;
+}
+.site-header-lums.header-scrolled .site-branding-lums .custom-logo-link img,
+.site-header-lums.header-scrolled .site-branding-lums .text-logo img {
+    max-height: 40px; /* Smaller logo on scroll */
+}
+.site-branding-lums .text-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff; /* Initial text logo color (if header is on dark/image bg) */
+    text-decoration: none;
+}
+.site-header-lums.header-scrolled .site-branding-lums .text-logo {
+    color: #fff; /* Text logo color on scrolled header */
+}
+
+
+.main-navigation-lums {
+    /* Desktop menu appears here */
+}
+
+.nav-menu-lums {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-menu-lums li {
+    margin-right: 25px; /* RTL: margin-left equivalent */
+}
+.nav-menu-lums li:last-child {
+    margin-right: 0;
+}
+
+.nav-menu-lums a {
+    color: #fff; /* Initial link color */
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+.nav-menu-lums a::after { /* Underline effect */
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px; /* Slightly wider accent */
-    height: 4px;
-    background-color: #ff69b4; /* Pink accent */
-    border-radius: 2px;
+    bottom: -2px;
+    right: 0; /* RTL */
+    width: 0;
+    height: 2px;
+    background-color: #FF69B4; /* Pink accent */
+    transition: width 0.3s ease;
+}
+.nav-menu-lums a:hover,
+.nav-menu-lums .current-menu-item > a, /* Highlight active page link */
+.nav-menu-lums .current_page_item > a {
+    color: #FFDA58; /* Yellow accent on hover/active */
+}
+.nav-menu-lums a:hover::after,
+.nav-menu-lums .current-menu-item > a::after,
+.nav-menu-lums .current_page_item > a::after {
+    width: 100%;
 }
 
-
-/* Product Details Section Styles */
-.product-details-section {
-    padding: 3rem 0; /* Using rem */
+.site-header-lums.header-scrolled .nav-menu-lums a {
+    color: #fff; /* Link color on scrolled header */
+}
+.site-header-lums.header-scrolled .nav-menu-lums a:hover,
+.site-header-lums.header-scrolled .nav-menu-lums .current-menu-item > a,
+.site-header-lums.header-scrolled .nav-menu-lums .current_page_item > a {
+    color: #f0f0f0; /* Lighter white/grey on hover for scrolled header */
+}
+.site-header-lums.header-scrolled .nav-menu-lums a::after{
     background-color: #fff;
 }
 
-.product-options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem; /* Adjusted gap */
-    margin-bottom: 2.5rem; /* Adjusted margin */
-    padding: 1.5rem; /* Adjusted padding */
-    background-color: #f8f9fa; /* Slightly different light grey */
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+.header-cta-lums .btn.btn-primary-lums {
+    background-color: #FF69B4; /* Pink */
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px; /* Pill shape */
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.header-cta-lums .btn.btn-primary-lums:hover {
+    background-color: #e055a0; /* Darker pink */
+    transform: translateY(-2px);
 }
 
-.size-selector label {
+/* Mobile Menu Toggle */
+.menu-toggle-lums {
+    display: none; /* Hidden on desktop */
+    background: transparent;
+    border: none;
+    color: #fff; /* Hamburger icon color */
+    font-size: 1.5rem; /* Adjust size of icon container */
+    cursor: pointer;
+    padding: 5px;
+}
+.site-header-lums.header-scrolled .menu-toggle-lums {
+    color: #fff;
+}
+
+.hamburger-icon-lums {
     display: block;
-    margin-bottom: 0.5rem; /* Adjusted margin */
-    font-weight: 500; /* Medium weight for label */
-    color: #495057; /* Darker grey for label */
+    width: 25px;
+    height: 2px;
+    background-color: currentColor;
+    position: relative;
+    transition: background-color 0s 0.3s; /* Delay disappearance of middle bar */
+}
+.hamburger-icon-lums::before,
+.hamburger-icon-lums::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+    transition: transform 0.3s ease-in-out;
+}
+.hamburger-icon-lums::before {
+    top: -7px;
+}
+.hamburger-icon-lums::after {
+    bottom: -7px;
 }
 
-#age-select {
-    padding: 0.75rem 1rem; /* Adjusted padding */
-    border-radius: 5px;
-    border: 1px solid #ced4da; /* Standard Bootstrap border color */
-    font-size: 1rem; /* Using rem */
-    min-width: 220px; /* Slightly wider */
-    background-color: white;
+/* Mobile Menu Open State (X icon) */
+.menu-toggle-lums[aria-expanded="true"] .hamburger-icon-lums {
+    background-color: transparent; /* Middle bar disappears */
+}
+.menu-toggle-lums[aria-expanded="true"] .hamburger-icon-lums::before {
+    transform: translateY(7px) rotate(45deg);
+}
+.menu-toggle-lums[aria-expanded="true"] .hamburger-icon-lums::after {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
-#age-select:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Standard Bootstrap focus shadow */
+
+/* Mobile Menu Styles */
+@media (max-width: 991px) { /* Breakpoint for mobile menu, adjust as needed */
+    .main-navigation-lums {
+        /* position: relative; */ /* Might not be needed */
+    }
+    .menu-toggle-lums {
+        display: block;
+        margin-left: auto; /* Push toggle to the right in RTL would be margin-right */
+    }
+    .nav-menu-lums {
+        display: none; /* Hide desktop menu */
+        position: absolute;
+        top: 100%; /* Position below header */
+        right: 0; /* RTL: align to right */
+        left: auto; /* RTL: ensure left is auto */
+        width: 100%;
+        background-color: #00A9E0; /* Scrolled header color or slightly darker/lighter */
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        padding: 10px 0;
+        z-index: 999;
+        flex-direction: column;
+    }
+    .nav-menu-lums.toggled-lums { /* Class added by JS to show menu */
+        display: flex;
+    }
+    .nav-menu-lums li {
+        margin-right: 0;
+        width: 100%;
+    }
+    .nav-menu-lums a {
+        display: block;
+        padding: 12px 20px;
+        color: #fff; /* Link color in mobile menu */
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-menu-lums li:last-child a {
+        border-bottom: none;
+    }
+    .nav-menu-lums a::after { /* No underline effect on mobile */
+        display: none;
+    }
+    .nav-menu-lums a:hover {
+        background-color: rgba(255,255,255,0.05);
+        color: #FFDA58; /* Yellow accent on hover */
+    }
+
+    .header-cta-lums { /* Optional: hide or restyle CTA on mobile */
+        /* display: none; */ /* Example: hide CTA on very small screens if needed */
+    }
 }
 
-.price-display p {
-    font-size: 1.6rem; /* Slightly larger price */
-    font-weight: 700; /* Bold price */
-    color: #007bff;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
-    height: 0;
-    margin-bottom: 0; /* Remove bottom margin from price paragraph */
-}
 
-.price-display p.price-visible {
+/* Preloader Styles */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff; /* Or a theme color like primary 1 */
+    z-index: 99999; /* Very high z-index */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.5s ease-in-out;
-    height: auto;
+    transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
 }
 
-
-#product-price {
-    display: inline-block;
-    transition: opacity 0.2s ease-in-out;
-}
-
-/* Scroll Animation Base Styles */
-.fade-in-on-scroll {
+#preloader.preloader-hidden {
     opacity: 0;
-    transform: translateY(25px); /* Slightly less translation */
-    transition: opacity 0.7s ease-out, transform 0.6s ease-out; /* Slightly faster */
+    visibility: hidden;
 }
 
-.fade-in-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+.preloader-spinner .spinner-css {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f0f0f0; /* Light grey for track */
+    border-top-color: #FF69B4; /* Theme color (Pink) for spinner */
+    border-radius: 50%;
+    animation: preloader-spin 1s linear infinite;
 }
 
-/* Staggered Fade for Product Features */
-.product-features ul {
-    /* This will be the trigger for the Intersection Observer */
+/* If using an image for preloader */
+.preloader-spinner img {
+    max-width: 100px; /* Adjust as needed */
+    max-height: 100px; /* Adjust as needed */
+    animation: preloader-pulse 1.5s ease-in-out infinite; /* Optional pulse animation */
 }
 
-.staggered-fade-item {
-    opacity: 0;
-    transform: translateX(25px); /* Start from right (for RTL), slightly less translation */
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Slightly faster */
-}
-
-.staggered-fade-item.is-visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-
-.product-features {
-    margin-top: 2rem; /* Adjusted margin */
-    text-align: right;
-}
-
-.product-features h3 {
-    font-size: 1.4rem; /* Adjusted size */
-    color: #343a40; /* Darker heading */
-    margin-bottom: 1rem; /* Adjusted margin */
-    padding-bottom: 0.4rem;
-    border-bottom: 2px solid #fce4ec;
-    display: inline-block;
-}
-
-.product-features ul {
-    list-style: none;
-    padding-right: 0;
-}
-
-.product-features ul li {
-    font-size: 1.05rem; /* Slightly adjusted */
-    color: #495057; /* Darker grey for list items */
-    margin-bottom: 0.75rem; /* Adjusted margin */
-    line-height: 1.65;
-    padding-right: 2rem; /* More padding for icon */
-    position: relative;
-}
-
-.product-features ul li::before {
-    content: '✔';
-    color: #ff69b4;
-    position: absolute;
-    right: 0;
-    top: 2px; /* Fine-tune vertical alignment */
-    font-size: 1.2em; /* Slightly larger checkmark */
-}
-
-@media (min-width: 768px) {
-    .product-options {
-        flex-direction: row;
-        justify-content: center;
-        gap: 2rem; /* Adjusted gap */
-    }
-    .size-selector label {
-        text-align: right;
+@keyframes preloader-spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 
-/* Order Form Section Styles */
-.order-form-section {
-    padding: 3rem 0; /* Using rem */
-    background-color: #e9ecef; /* Lighter, more neutral blueish-grey */
-}
-
-.torobche-order-form {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 2rem; /* Adjusted padding */
-    background-color: #fff;
-    border-radius: 10px; /* Slightly more rounded */
-    box-shadow: 0 6px 25px rgba(0,0,0,0.08); /* Softer, larger shadow */
-    direction: rtl;
-}
-
-.form-row {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem; /* Adjusted gap */
-    margin-bottom: 1.25rem; /* Adjusted margin */
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem; /* Adjusted margin */
-    font-weight: 500; /* Medium weight */
-    color: #495057;
-    font-size: 0.95rem; /* Slightly smaller label */
-}
-
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="tel"],
-.form-group textarea {
-    width: 100%;
-    padding: 0.8rem 1rem; /* Adjusted padding */
-    border: 1px solid #ced4da;
-    border-radius: 6px; /* Slightly more rounded */
-    font-size: 1rem;
-    font-family: inherit;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-    line-height: 1.5; /* Ensure text within input is not cramped */
-    background-color: #fff; /* Explicitly set background */
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #adb5bd; /* Lighter placeholder text */
-    opacity: 1; /* Ensure placeholder is visible */
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #ff69b4;
-    box-shadow: 0 0 0 0.2rem rgba(255, 105, 180, 0.25); /* Adjusted shadow to match pink */
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 100px; /* Slightly taller */
-}
-
-.required {
-    color: #dc3545; /* Bootstrap danger red */
-    margin-right: 2px;
-}
-
-.form-submit-group {
-    text-align: center;
-    margin-top: 2rem; /* More space before submit */
-}
-
-.btn-submit-order {
-    padding: 0.8rem 2rem; /* Adjusted padding */
-    font-size: 1.1rem; /* Adjusted size */
-    background-color: #007bff;
-    color: white;
-    border-radius: 6px; /* Consistent rounding */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.btn-submit-order:hover, .btn-submit-order:focus {
-    background-color: #0056b3;
-    transform: translateY(-2px); /* Add similar hover effect as .btn-primary */
-    box-shadow: 0 4px 8px rgba(0, 86, 179, 0.3); /* Enhanced shadow on hover */
-}
-.btn-submit-order:focus { /* Ensure focus style is distinct */
-    outline: none; /* Remove default if we rely on box-shadow or other indicators */
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.3), 0 4px 8px rgba(0, 86, 179, 0.3); /* Blue glow + hover shadow */
-}
-
-.form-note {
-    text-align: center;
-    margin-top: 1.5rem; /* Adjusted margin */
-    font-size: 0.9rem;
-    color: #6c757d; /* Bootstrap muted grey */
-}
-
-
-@media (min-width: 768px) {
-    .form-row {
-        flex-direction: row;
-        gap: 1.5rem; /* Add gap for horizontal layout too */
+@keyframes preloader-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
     }
 }
-
-/* Testimonials Section Styles */
-.testimonials-section {
-    padding: 3rem 0; /* Using rem */
-    background-color: #fdf0f5;
-}
-
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem; /* Adjusted gap */
-    margin-bottom: 2rem; /* Adjusted margin */
-}
-
-.testimonial-item {
-    background-color: #fff;
-    padding: 1.75rem; /* Adjusted padding */
-    border-radius: 10px; /* Consistent rounding */
-    box-shadow: 0 5px 20px rgba(0,0,0,0.07); /* Slightly adjusted shadow */
-    border-right: 5px solid #007bff;
-    direction: rtl;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.testimonial-item:hover {
-    transform: translateY(-6px); /* Slightly more lift */
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* Enhanced shadow on hover */
-}
-
-.testimonial-text {
-    font-size: 1rem; /* Standardized size */
-    color: #495057;
-    line-height: 1.75; /* Consistent with body */
-    margin-bottom: 1rem;
-    font-style: italic;
-}
-
-.testimonial-text::before {
-    content: '“';
-    font-size: 2.5em; /* Made quotes significantly larger */
-    color: #ffc107; /* Changed quote color to an accent yellow/gold for pop */
-    margin-left: 0.2em;
-    font-weight: bold;
-    line-height: 0.5; /* Adjusted line-height for better vertical alignment */
-    position: relative;
-    top: 0.2em; /* Fine-tune vertical position */
-}
-.testimonial-text::after {
-    content: '”';
-    font-size: 2.5em;
-    color: #ffc107; /* Consistent accent yellow/gold */
-    margin-right: 0.05em;
-    font-weight: bold;
-    line-height: 0.5;
-    position: relative;
-    top: 0.2em; /* Fine-tune vertical position */
-}
-
-
-.testimonial-author {
-    font-size: 0.9rem; /* Slightly smaller author */
-    font-weight: 600; /* Semi-bold author */
-    color: #343a40;
-    text-align: left;
-    margin-top: 1rem; /* Add some space above author */
-}
-
-.testimonials-note {
-    text-align: center;
-    font-size: 1rem;
-    color: #6c757d;
-    margin-top: 1.5rem; /* Space after grid */
-}
-
-/* Footer Styles */
-.site-footer {
-    background-color: #2c3e50; /* Darker, more bluish-grey footer */
-    color: #e9ecef; /* Lighter text for better contrast on dark bg */
-    padding: 3rem 0 1.5rem; /* Using rem */
-    direction: rtl;
-    font-size: 0.9rem; /* Slightly smaller base font for footer */
-}
-
-.footer-container {
-    /* Using .container class for width and centering */
-}
-
-.footer-widgets-area {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 2rem; /* Adjusted gap */
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #495057; /* Lighter border */
-}
-
-.footer-widget {
-    flex: 1;
-    min-width: 230px; /* Slightly adjusted */
-    text-align: right;
-}
-
-.footer-widget .widget-title {
-    font-size: 1.2rem; /* Adjusted size */
-    color: #ff69b4;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #495057;
-    display: inline-block;
-}
-
-.footer-widget p, .footer-widget ul {
-    margin-bottom: 0.75rem; /* Adjusted margin */
-    line-height: 1.6; /* Specific line height for footer content */
-}
-
-.footer-widget a {
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.footer-widget a:hover, .footer-widget a:focus {
-    color: #4dabf7;
-    text-decoration: underline;
-}
-
-.footer-icon {
-    margin-left: 0.5em; /* Adjusted margin */
-    color: #ff69b4;
-    font-size: 1.1em; /* Slightly larger icons */
-}
-
-.social-media-links {
-    list-style: none;
-    padding: 0;
-}
-
-.social-media-links li {
-    margin-bottom: 0.5rem; /* Adjusted margin */
-}
-
-.social-media-links .social-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6em; /* Adjusted gap */
-    font-size: 0.95rem; /* Control text size of social links */
-}
-
-.social-media-links .social-icon {
-    display: inline-block;
-    width: 22px;
-    height: 22px;
-    font-size: 1.3em; /* Make placeholder icon larger if using text char */
-    line-height: 1; /* Ensure icon aligns well if it's a text character */
-}
-/* Example: Add actual icons later via SVG or FontAwesome */
-/* Using more common Unicode characters as placeholders if SVGs are not used */
-.social-link.instagram .social-icon::before { content: '\1F4F7'; /* CAMERA emoji as a slightly better placeholder */ }
-.social-link.telegram .social-icon::before { content: '\27A4'; /* BLACK RIGHTWARDS ARROWHEAD (simpler than paper plane) */ }
-
-
-.footer-nav-links {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-nav-links li {
-    margin-bottom: 0.5rem; /* Adjusted margin */
-}
-
-.site-info-bar {
-    text-align: center;
-    padding-top: 1.5rem;
-    font-size: 0.85rem; /* Slightly smaller */
-}
-
-.site-info-bar p {
-    margin: 0.3rem 0;
-    color: #adb5bd; /* Lighter grey for less emphasis */
-}
-
-.site-info-bar .theme-credit {
-    font-size: 0.75rem;
-    color: #6c757d;
-}
-
-@media (max-width: 767px) {
-    .footer-widgets-area {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .footer-widget {
-        width: 100%;
-        max-width: 350px;
-    }
-    .footer-widget .widget-title {
-        display: block;
-        text-align: center;
-    }
-}
-
-
-/* Add more foundational styles as needed */
