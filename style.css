@@ -1,0 +1,24 @@
+/*
+Theme Name: Torobche
+Theme URI: https://torobche.art/
+Author: Jules
+Author URI: https://github.com/jules-agent
+Description: A WordPress theme for Torobche, a brand of colorable clothing for children.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: custom-background, custom-header, custom-menu, custom-logo, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, accessibility-ready
+Text Domain: torobche
+*/
+
+/*--------------------------------------------------------------
+# Responsive
+--------------------------------------------------------------*/
+@media (max-width: 768px) {
+    .site-header .main-navigation {
+        display: none;
+    }
+    .site-header .menu-toggle {
+        display: block;
+    }
+}
